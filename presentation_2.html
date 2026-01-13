@@ -351,58 +351,63 @@
 
         .pipeline-node.active.l0 {
             background: #9ca3af; border-color: #9ca3af; color: white !important;
-            box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.3);
-            animation: pulse-gray 2s infinite;
+            box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.3), 0 0 20px rgba(156, 163, 175, 0.5);
+            animation: pulse-gray 1.5s infinite, bounce 2s infinite;
         }
         .pipeline-node.active.l1 {
             background: #d97706; border-color: #d97706; color: white !important;
-            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3);
-            animation: pulse-yellow 2s infinite;
+            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3), 0 0 20px rgba(217, 119, 6, 0.5);
+            animation: pulse-yellow 1.5s infinite, bounce 2s infinite;
         }
         .pipeline-node.active.l2 {
             background: #65a30d; border-color: #65a30d; color: white !important;
-            box-shadow: 0 0 0 4px rgba(101, 163, 13, 0.3);
-            animation: pulse-green 2s infinite;
+            box-shadow: 0 0 0 4px rgba(101, 163, 13, 0.3), 0 0 20px rgba(101, 163, 13, 0.5);
+            animation: pulse-green 1.5s infinite, bounce 2s infinite;
         }
         .pipeline-node.active.l3 {
             background: #0891b2; border-color: #0891b2; color: white !important;
-            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.3);
-            animation: pulse-cyan 2s infinite;
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.3), 0 0 20px rgba(8, 145, 178, 0.5);
+            animation: pulse-cyan 1.5s infinite, bounce 2s infinite;
         }
         .pipeline-node.active.l4 {
             background: #7c3aed; border-color: #7c3aed; color: white !important;
-            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3);
-            animation: pulse-purple 2s infinite;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3), 0 0 20px rgba(124, 58, 237, 0.5);
+            animation: pulse-purple 1.5s infinite, bounce 2s infinite;
         }
         .pipeline-node.active.l5 {
             background: #db2777; border-color: #db2777; color: white !important;
-            box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3);
-            animation: pulse-pink 2s infinite;
+            box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3), 0 0 20px rgba(219, 39, 119, 0.5);
+            animation: pulse-pink 1.5s infinite, bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1.2) translateY(0); }
+            50% { transform: scale(1.2) translateY(-5px); }
         }
 
         @keyframes pulse-gray {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(156, 163, 175, 0.15); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.3), 0 0 20px rgba(156, 163, 175, 0.5); }
+            50% { box-shadow: 0 0 0 10px rgba(156, 163, 175, 0.1), 0 0 35px rgba(156, 163, 175, 0.3); }
         }
         @keyframes pulse-yellow {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(217, 119, 6, 0.15); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3), 0 0 20px rgba(217, 119, 6, 0.5); }
+            50% { box-shadow: 0 0 0 10px rgba(217, 119, 6, 0.1), 0 0 35px rgba(217, 119, 6, 0.3); }
         }
         @keyframes pulse-green {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(101, 163, 13, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(101, 163, 13, 0.15); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(101, 163, 13, 0.3), 0 0 20px rgba(101, 163, 13, 0.5); }
+            50% { box-shadow: 0 0 0 10px rgba(101, 163, 13, 0.1), 0 0 35px rgba(101, 163, 13, 0.3); }
         }
         @keyframes pulse-cyan {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(8, 145, 178, 0.15); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.3), 0 0 20px rgba(8, 145, 178, 0.5); }
+            50% { box-shadow: 0 0 0 10px rgba(8, 145, 178, 0.1), 0 0 35px rgba(8, 145, 178, 0.3); }
         }
         @keyframes pulse-purple {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.15); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3), 0 0 20px rgba(124, 58, 237, 0.5); }
+            50% { box-shadow: 0 0 0 10px rgba(124, 58, 237, 0.1), 0 0 35px rgba(124, 58, 237, 0.3); }
         }
         @keyframes pulse-pink {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(219, 39, 119, 0.15); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3), 0 0 20px rgba(219, 39, 119, 0.5); }
+            50% { box-shadow: 0 0 0 10px rgba(219, 39, 119, 0.1), 0 0 35px rgba(219, 39, 119, 0.3); }
         }
 
         .pipeline-label {
