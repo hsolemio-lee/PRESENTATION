@@ -95,7 +95,6 @@ class ReviewServer(SimpleHTTPRequestHandler):
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="5">
     <title>리뷰 메모 관리</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -195,7 +194,7 @@ class ReviewServer(SimpleHTTPRequestHandler):
     <div class="header">
         <div>
             <h1>발표자료 리뷰 메모</h1>
-            <p class="refresh-info">5초마다 자동 새로고침</p>
+            <button class="btn" style="background:#3b82f6;margin-left:10px;" onclick="location.reload()">🔄 새로고침</button>
         </div>
         <span class="stats">총 ''' + str(len(notes)) + '''개 메모</span>
     </div>
