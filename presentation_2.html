@@ -243,7 +243,7 @@
         /* 전문가 스타일 파이프라인 */
         .pipeline-container {
             position: relative;
-            padding: 30px 0;
+            padding: 20px 0;
         }
 
         .pipeline-track {
@@ -251,18 +251,17 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .pipeline-progress {
             position: absolute;
-            top: 50%;
-            left: 50px;
-            right: 50px;
-            height: 4px;
+            top: 22px;
+            left: 60px;
+            right: 60px;
+            height: 3px;
             background: #e5e7eb;
-            transform: translateY(-50%);
             border-radius: 2px;
             z-index: 0;
         }
@@ -280,23 +279,23 @@
         }
 
         .pipeline-progress-fill.to-l2 {
-            width: 30%;
+            width: 28%;
             background: linear-gradient(90deg, #9ca3af, #d97706, #65a30d);
         }
 
         .pipeline-progress-fill.to-l3 {
-            width: 50%;
+            width: 48%;
             background: linear-gradient(90deg, #9ca3af, #d97706, #65a30d, #0891b2);
         }
 
         .pipeline-progress-fill.to-l4 {
-            width: 70%;
+            width: 68%;
             background: linear-gradient(90deg, #9ca3af, #d97706, #65a30d, #0891b2, #7c3aed);
         }
 
         .pipeline-steps {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             width: 100%;
             position: relative;
@@ -308,18 +307,18 @@
             flex-direction: column;
             align-items: center;
             flex: 1;
-            max-width: 140px;
+            max-width: 160px;
         }
 
         .pipeline-node {
-            width: 56px;
-            height: 56px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1em;
+            font-size: 0.85em;
             background: white;
             border: 3px solid #e5e7eb;
             color: #9ca3af;
@@ -347,184 +346,131 @@
         .pipeline-node.completed.l5 { background: #db2777; border-color: #db2777; }
 
         .pipeline-node.active {
-            transform: scale(1.15);
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+            transform: scale(1.2);
         }
 
         .pipeline-node.active.l0 {
             background: #9ca3af; border-color: #9ca3af; color: white !important;
-            box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.3), 0 0 20px rgba(156, 163, 175, 0.4);
+            box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.3);
             animation: pulse-gray 2s infinite;
         }
         .pipeline-node.active.l1 {
             background: #d97706; border-color: #d97706; color: white !important;
-            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3), 0 0 20px rgba(217, 119, 6, 0.4);
+            box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3);
             animation: pulse-yellow 2s infinite;
         }
         .pipeline-node.active.l2 {
             background: #65a30d; border-color: #65a30d; color: white !important;
-            box-shadow: 0 0 0 4px rgba(101, 163, 13, 0.3), 0 0 20px rgba(101, 163, 13, 0.4);
+            box-shadow: 0 0 0 4px rgba(101, 163, 13, 0.3);
             animation: pulse-green 2s infinite;
         }
         .pipeline-node.active.l3 {
             background: #0891b2; border-color: #0891b2; color: white !important;
-            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.3), 0 0 20px rgba(8, 145, 178, 0.4);
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.3);
             animation: pulse-cyan 2s infinite;
         }
         .pipeline-node.active.l4 {
             background: #7c3aed; border-color: #7c3aed; color: white !important;
-            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3), 0 0 20px rgba(124, 58, 237, 0.4);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3);
             animation: pulse-purple 2s infinite;
         }
         .pipeline-node.active.l5 {
             background: #db2777; border-color: #db2777; color: white !important;
-            box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3), 0 0 20px rgba(219, 39, 119, 0.4);
+            box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3);
             animation: pulse-pink 2s infinite;
         }
 
         @keyframes pulse-gray {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.3), 0 0 20px rgba(156, 163, 175, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(156, 163, 175, 0.2), 0 0 30px rgba(156, 163, 175, 0.3); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(156, 163, 175, 0.15); }
         }
         @keyframes pulse-yellow {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3), 0 0 20px rgba(217, 119, 6, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(217, 119, 6, 0.2), 0 0 30px rgba(217, 119, 6, 0.3); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(217, 119, 6, 0.15); }
         }
         @keyframes pulse-green {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(101, 163, 13, 0.3), 0 0 20px rgba(101, 163, 13, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(101, 163, 13, 0.2), 0 0 30px rgba(101, 163, 13, 0.3); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(101, 163, 13, 0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(101, 163, 13, 0.15); }
         }
         @keyframes pulse-cyan {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.3), 0 0 20px rgba(8, 145, 178, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(8, 145, 178, 0.2), 0 0 30px rgba(8, 145, 178, 0.3); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(8, 145, 178, 0.15); }
         }
         @keyframes pulse-purple {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3), 0 0 20px rgba(124, 58, 237, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.2), 0 0 30px rgba(124, 58, 237, 0.3); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.15); }
         }
         @keyframes pulse-pink {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3), 0 0 20px rgba(219, 39, 119, 0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(219, 39, 119, 0.2), 0 0 30px rgba(219, 39, 119, 0.3); }
+            0%, 100% { box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(219, 39, 119, 0.15); }
         }
 
         .pipeline-label {
-            margin-top: 12px;
+            margin-top: 10px;
             text-align: center;
         }
 
         .pipeline-label-title {
-            font-weight: 700;
-            font-size: 0.85em;
+            font-weight: 600;
+            font-size: 0.65em;
             color: var(--text-dark);
         }
 
-        .pipeline-label-subtitle {
-            font-size: 0.65em;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
         .pipeline-step.dimmed .pipeline-node {
-            opacity: 0.4;
+            opacity: 0.35;
         }
         .pipeline-step.dimmed .pipeline-label {
-            opacity: 0.4;
+            opacity: 0.35;
+        }
+
+        /* 상태 배지 - 라벨 아래에 표시 */
+        .pipeline-badge {
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.6em;
+            font-weight: 600;
+            color: white;
+            display: inline-block;
+        }
+
+        .pipeline-badge.current {
+            background: var(--accent-color);
+            animation: badgePulse 2s infinite;
+        }
+
+        .pipeline-badge.target {
+            background: var(--secondary-color);
+        }
+
+        .pipeline-badge.target-purple {
+            background: var(--purple-color);
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         /* 슬라이드 진입 애니메이션 */
-        .reveal .slides section.present .pipeline-node {
-            animation-delay: 0.1s;
-        }
-
         .reveal .slides section.present .pipeline-step:nth-child(1) .pipeline-node { animation-delay: 0s; }
-        .reveal .slides section.present .pipeline-step:nth-child(2) .pipeline-node { animation-delay: 0.1s; }
-        .reveal .slides section.present .pipeline-step:nth-child(3) .pipeline-node { animation-delay: 0.2s; }
-        .reveal .slides section.present .pipeline-step:nth-child(4) .pipeline-node { animation-delay: 0.3s; }
-        .reveal .slides section.present .pipeline-step:nth-child(5) .pipeline-node { animation-delay: 0.4s; }
-        .reveal .slides section.present .pipeline-step:nth-child(6) .pipeline-node { animation-delay: 0.5s; }
+        .reveal .slides section.present .pipeline-step:nth-child(2) .pipeline-node { animation-delay: 0.08s; }
+        .reveal .slides section.present .pipeline-step:nth-child(3) .pipeline-node { animation-delay: 0.16s; }
+        .reveal .slides section.present .pipeline-step:nth-child(4) .pipeline-node { animation-delay: 0.24s; }
+        .reveal .slides section.present .pipeline-step:nth-child(5) .pipeline-node { animation-delay: 0.32s; }
+        .reveal .slides section.present .pipeline-step:nth-child(6) .pipeline-node { animation-delay: 0.4s; }
 
         @keyframes nodeAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .reveal .slides section.present .pipeline-step .pipeline-node {
-            animation: nodeAppear 0.4s ease-out forwards;
+            animation: nodeAppear 0.3s ease-out forwards;
         }
 
         .reveal .slides section.present .pipeline-step.dimmed .pipeline-node {
-            animation: nodeAppear 0.4s ease-out forwards;
-        }
-
-        /* 현재 위치 마커 */
-        .current-marker {
-            position: absolute;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent-color);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.65em;
-            font-weight: 600;
-            white-space: nowrap;
-            animation: bounce 1s infinite;
-        }
-
-        .current-marker::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 6px solid var(--accent-color);
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-5px); }
-        }
-
-        /* 목표 마커 */
-        .target-marker {
-            position: absolute;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--secondary-color);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.65em;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .target-marker::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 6px solid var(--secondary-color);
-        }
-
-        .target-marker.purple {
-            background: var(--purple-color);
-        }
-        .target-marker.purple::after {
-            border-top-color: var(--purple-color);
+            animation: nodeAppear 0.3s ease-out forwards;
         }
     </style>
 </head>
@@ -855,54 +801,47 @@
                             </div>
                             <div class="pipeline-steps">
                                 <div class="pipeline-step">
-                                    <div class="pipeline-node l0 active">
-                                        <span class="current-marker">현재</span>
-                                        L0
-                                    </div>
+                                    <div class="pipeline-node l0 active">L0</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">No AI</div>
-                                        <div class="pipeline-label-subtitle">AI 미활용</div>
+                                        <span class="pipeline-badge current">현재</span>
                                     </div>
                                 </div>
                                 <div class="pipeline-step">
                                     <div class="pipeline-node l1 active">L1</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Ad-hoc</div>
-                                        <div class="pipeline-label-subtitle">개인 챗</div>
+                                        <span class="pipeline-badge current">현재</span>
                                     </div>
                                 </div>
                                 <div class="pipeline-step dimmed">
                                     <div class="pipeline-node l2">L2</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Standardized</div>
-                                        <div class="pipeline-label-subtitle">팀 표준화</div>
                                     </div>
                                 </div>
                                 <div class="pipeline-step dimmed">
                                     <div class="pipeline-node l3">L3</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Repo-aware</div>
-                                        <div class="pipeline-label-subtitle">저장소 인식</div>
                                     </div>
                                 </div>
                                 <div class="pipeline-step dimmed">
                                     <div class="pipeline-node l4">L4</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Agentic</div>
-                                        <div class="pipeline-label-subtitle">에이전트</div>
                                     </div>
                                 </div>
                                 <div class="pipeline-step dimmed">
                                     <div class="pipeline-node l5">L5</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Autonomous</div>
-                                        <div class="pipeline-label-subtitle">자율화</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <p style="font-size: 1.1em; font-weight: 600; color: var(--text-muted); margin-top: 10px;">
+                    <p style="font-size: 1.1em; font-weight: 600; color: var(--text-muted); margin-top: 15px;">
                         현재 추정: <span class="level-0">L0</span> ~ <span class="level-1">L1</span> 사이
                     </p>
                 </section>
@@ -934,6 +873,60 @@
                     </div>
                 </section>
 
+                <!-- 파이프라인 2: L2 -->
+                <section>
+                    <h3>L2: Standardized</h3>
+                    <div class="pipeline-container">
+                        <div class="pipeline-track">
+                            <div class="pipeline-progress">
+                                <div class="pipeline-progress-fill to-l2"></div>
+                            </div>
+                            <div class="pipeline-steps">
+                                <div class="pipeline-step">
+                                    <div class="pipeline-node l0 completed">L0</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">No AI</div>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step">
+                                    <div class="pipeline-node l1 completed">L1</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Ad-hoc</div>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step">
+                                    <div class="pipeline-node l2 active">L2</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Standardized</div>
+                                        <span class="pipeline-badge target">목표</span>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step dimmed">
+                                    <div class="pipeline-node l3">L3</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Repo-aware</div>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step dimmed">
+                                    <div class="pipeline-node l4">L4</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Agentic</div>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step dimmed">
+                                    <div class="pipeline-node l5">L5</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Autonomous</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-size: 1.1em; font-weight: 600; color: var(--secondary-color); margin-top: 15px;">
+                        팀 표준화 단계 - AI 활용 지점 합의, 가이드라인 수립
+                    </p>
+                </section>
+
                 <!-- Level 2 상세 -->
                 <section>
                     <h3>Level 2: Standardized (AI Assistant)</h3>
@@ -961,9 +954,9 @@
                     </div>
                 </section>
 
-                <!-- 파이프라인 2: 단기 목표 (L2~L3 하이라이트) -->
+                <!-- 파이프라인 3: L3 -->
                 <section>
-                    <h3>단기 목표</h3>
+                    <h3>L3: Repo-aware</h3>
                     <div class="pipeline-container">
                         <div class="pipeline-track">
                             <div class="pipeline-progress">
@@ -974,52 +967,44 @@
                                     <div class="pipeline-node l0 completed">L0</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">No AI</div>
-                                        <div class="pipeline-label-subtitle">AI 미활용</div>
                                     </div>
                                 </div>
                                 <div class="pipeline-step">
                                     <div class="pipeline-node l1 completed">L1</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Ad-hoc</div>
-                                        <div class="pipeline-label-subtitle">개인 챗</div>
                                     </div>
                                 </div>
                                 <div class="pipeline-step">
-                                    <div class="pipeline-node l2 active">L2</div>
+                                    <div class="pipeline-node l2 completed">L2</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Standardized</div>
-                                        <div class="pipeline-label-subtitle">팀 표준화</div>
                                     </div>
                                 </div>
                                 <div class="pipeline-step">
-                                    <div class="pipeline-node l3 active">
-                                        <span class="target-marker">목표</span>
-                                        L3
-                                    </div>
+                                    <div class="pipeline-node l3 active">L3</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Repo-aware</div>
-                                        <div class="pipeline-label-subtitle">저장소 인식</div>
+                                        <span class="pipeline-badge target">목표</span>
                                     </div>
                                 </div>
                                 <div class="pipeline-step dimmed">
                                     <div class="pipeline-node l4">L4</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Agentic</div>
-                                        <div class="pipeline-label-subtitle">에이전트</div>
                                     </div>
                                 </div>
                                 <div class="pipeline-step dimmed">
                                     <div class="pipeline-node l5">L5</div>
                                     <div class="pipeline-label">
                                         <div class="pipeline-label-title">Autonomous</div>
-                                        <div class="pipeline-label-subtitle">자율화</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <p style="font-size: 1.1em; font-weight: 600; color: var(--secondary-color); margin-top: 10px;">
-                        단기 목표: <span class="level-2">L2</span> ~ <span class="level-3">L3</span>
+                    <p style="font-size: 1.1em; font-weight: 600; color: #0891b2; margin-top: 15px;">
+                        저장소 인식 단계 - Cursor, Cline 등 Repo-aware 도구 활용
                     </p>
                 </section>
 
@@ -1050,6 +1035,60 @@
                     </div>
                 </section>
 
+                <!-- 파이프라인 4: L4 -->
+                <section>
+                    <h3>L4: Agentic Flow</h3>
+                    <div class="pipeline-container">
+                        <div class="pipeline-track">
+                            <div class="pipeline-progress">
+                                <div class="pipeline-progress-fill to-l4"></div>
+                            </div>
+                            <div class="pipeline-steps">
+                                <div class="pipeline-step">
+                                    <div class="pipeline-node l0 completed">L0</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">No AI</div>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step">
+                                    <div class="pipeline-node l1 completed">L1</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Ad-hoc</div>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step">
+                                    <div class="pipeline-node l2 completed">L2</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Standardized</div>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step">
+                                    <div class="pipeline-node l3 completed">L3</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Repo-aware</div>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step">
+                                    <div class="pipeline-node l4 active">L4</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Agentic</div>
+                                        <span class="pipeline-badge target-purple">목표</span>
+                                    </div>
+                                </div>
+                                <div class="pipeline-step dimmed">
+                                    <div class="pipeline-node l5">L5</div>
+                                    <div class="pipeline-label">
+                                        <div class="pipeline-label-title">Autonomous</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-size: 1.1em; font-weight: 600; color: var(--purple-color); margin-top: 15px;">
+                        에이전트 단계 - Claude Code, Devin 등 자율 작업 수행
+                    </p>
+                </section>
+
                 <!-- Level 4 상세 -->
                 <section>
                     <h3>Level 4: Agentic Flow (AI First)</h3>
@@ -1075,68 +1114,6 @@
                             </div>
                         </div>
                     </div>
-                </section>
-
-                <!-- 파이프라인 3: 중기 목표 (L4 하이라이트) -->
-                <section>
-                    <h3>중기 목표</h3>
-                    <div class="pipeline-container">
-                        <div class="pipeline-track">
-                            <div class="pipeline-progress">
-                                <div class="pipeline-progress-fill to-l4"></div>
-                            </div>
-                            <div class="pipeline-steps">
-                                <div class="pipeline-step">
-                                    <div class="pipeline-node l0 completed">L0</div>
-                                    <div class="pipeline-label">
-                                        <div class="pipeline-label-title">No AI</div>
-                                        <div class="pipeline-label-subtitle">AI 미활용</div>
-                                    </div>
-                                </div>
-                                <div class="pipeline-step">
-                                    <div class="pipeline-node l1 completed">L1</div>
-                                    <div class="pipeline-label">
-                                        <div class="pipeline-label-title">Ad-hoc</div>
-                                        <div class="pipeline-label-subtitle">개인 챗</div>
-                                    </div>
-                                </div>
-                                <div class="pipeline-step">
-                                    <div class="pipeline-node l2 completed">L2</div>
-                                    <div class="pipeline-label">
-                                        <div class="pipeline-label-title">Standardized</div>
-                                        <div class="pipeline-label-subtitle">팀 표준화</div>
-                                    </div>
-                                </div>
-                                <div class="pipeline-step">
-                                    <div class="pipeline-node l3 completed">L3</div>
-                                    <div class="pipeline-label">
-                                        <div class="pipeline-label-title">Repo-aware</div>
-                                        <div class="pipeline-label-subtitle">저장소 인식</div>
-                                    </div>
-                                </div>
-                                <div class="pipeline-step">
-                                    <div class="pipeline-node l4 active">
-                                        <span class="target-marker purple">목표</span>
-                                        L4
-                                    </div>
-                                    <div class="pipeline-label">
-                                        <div class="pipeline-label-title">Agentic</div>
-                                        <div class="pipeline-label-subtitle">에이전트</div>
-                                    </div>
-                                </div>
-                                <div class="pipeline-step dimmed">
-                                    <div class="pipeline-node l5">L5</div>
-                                    <div class="pipeline-label">
-                                        <div class="pipeline-label-title">Autonomous</div>
-                                        <div class="pipeline-label-subtitle">자율화</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p style="font-size: 1.1em; font-weight: 600; color: var(--purple-color); margin-top: 10px;">
-                        중기 목표: <span class="level-4">L4 (Agentic Flow)</span>
-                    </p>
                 </section>
 
                 <!-- Level 5 상세 -->
@@ -1377,7 +1354,7 @@
                             </div>
                         </div>
                     </div>
-                    <p style="margin-top: 25px; font-weight: 700; color: var(--secondary-color); font-size: 1.1em;">
+                    <p class="fragment fade-up" style="margin-top: 25px; font-weight: 700; color: var(--secondary-color); font-size: 1.1em;">
                         개발자 역할 변화: 구현 중심 → 설계 중심
                     </p>
                 </section>
