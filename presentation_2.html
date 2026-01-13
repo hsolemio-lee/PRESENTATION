@@ -1669,5 +1669,298 @@
             }
         });
     </script>
+
+    <!-- 리뷰 모드 스타일 -->
+    <style>
+        .review-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        .review-toggle:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        .review-toggle.active {
+            background: #dc2626;
+        }
+
+        .review-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 3px solid #3b82f6;
+            padding: 20px;
+            z-index: 9998;
+            display: none;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.15);
+        }
+        .review-panel.active {
+            display: block;
+        }
+        .review-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .review-panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .review-panel-slide {
+            font-size: 14px;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 5px 12px;
+            border-radius: 15px;
+        }
+        .review-textarea {
+            width: 100%;
+            height: 100px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 14px;
+            resize: none;
+            font-family: inherit;
+        }
+        .review-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        .review-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .review-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .review-btn-save {
+            background: #059669;
+            color: white;
+        }
+        .review-btn-save:hover {
+            background: #047857;
+        }
+        .review-btn-clear {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        .review-btn-clear:hover {
+            background: #e5e7eb;
+        }
+        .review-btn-export {
+            background: #7c3aed;
+            color: white;
+        }
+        .review-btn-export:hover {
+            background: #6d28d9;
+        }
+        .review-status {
+            font-size: 13px;
+            color: #059669;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .review-status.show {
+            opacity: 1;
+        }
+
+        /* 메모가 있는 슬라이드 표시 */
+        .has-note-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9997;
+            background: #fbbf24;
+            color: #1f2937;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+        }
+        .has-note-indicator.show {
+            display: block;
+        }
+
+        /* 리뷰 모드일 때 슬라이드 영역 조정 */
+        body.review-mode .reveal {
+            height: calc(100vh - 180px) !important;
+        }
+    </style>
+
+    <!-- 리뷰 모드 UI -->
+    <button class="review-toggle" onclick="toggleReviewMode()">📝 리뷰 모드</button>
+    <div class="has-note-indicator" id="noteIndicator">📌 이 슬라이드에 메모 있음</div>
+
+    <div class="review-panel" id="reviewPanel">
+        <div class="review-panel-header">
+            <span class="review-panel-title">📝 발표자 메모</span>
+            <span class="review-panel-slide" id="currentSlideInfo">슬라이드 1/1</span>
+        </div>
+        <textarea class="review-textarea" id="reviewNote" placeholder="이 슬라이드에 대한 수정 사항이나 메모를 입력하세요..."></textarea>
+        <div class="review-actions">
+            <div>
+                <button class="review-btn review-btn-save" onclick="saveNote()">💾 저장</button>
+                <button class="review-btn review-btn-clear" onclick="clearNote()">🗑️ 삭제</button>
+                <span class="review-status" id="saveStatus">✓ 저장됨</span>
+            </div>
+            <button class="review-btn review-btn-export" onclick="exportNotes()">📄 전체 메모 내보내기</button>
+        </div>
+    </div>
+
+    <script>
+        let reviewMode = false;
+        const STORAGE_KEY = 'presentation_review_notes';
+
+        function toggleReviewMode() {
+            reviewMode = !reviewMode;
+            document.body.classList.toggle('review-mode', reviewMode);
+            document.getElementById('reviewPanel').classList.toggle('active', reviewMode);
+            document.querySelector('.review-toggle').classList.toggle('active', reviewMode);
+            document.querySelector('.review-toggle').textContent = reviewMode ? '✕ 리뷰 모드 종료' : '📝 리뷰 모드';
+
+            if (reviewMode) {
+                loadCurrentNote();
+                Reveal.layout();
+            } else {
+                Reveal.layout();
+            }
+        }
+
+        function getSlideKey() {
+            const indices = Reveal.getIndices();
+            return `slide_${indices.h}_${indices.v}`;
+        }
+
+        function getAllNotes() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            return stored ? JSON.parse(stored) : {};
+        }
+
+        function saveNote() {
+            const note = document.getElementById('reviewNote').value;
+            const notes = getAllNotes();
+            const key = getSlideKey();
+
+            if (note.trim()) {
+                notes[key] = {
+                    note: note,
+                    slideInfo: document.getElementById('currentSlideInfo').textContent,
+                    timestamp: new Date().toLocaleString('ko-KR')
+                };
+            } else {
+                delete notes[key];
+            }
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+
+            const status = document.getElementById('saveStatus');
+            status.classList.add('show');
+            setTimeout(() => status.classList.remove('show'), 2000);
+
+            updateNoteIndicator();
+        }
+
+        function clearNote() {
+            if (confirm('이 슬라이드의 메모를 삭제하시겠습니까?')) {
+                document.getElementById('reviewNote').value = '';
+                saveNote();
+            }
+        }
+
+        function loadCurrentNote() {
+            const indices = Reveal.getIndices();
+            const total = Reveal.getTotalSlides();
+            const current = Reveal.getSlidePastCount() + 1;
+
+            document.getElementById('currentSlideInfo').textContent = `슬라이드 ${current}/${total}`;
+
+            const notes = getAllNotes();
+            const key = getSlideKey();
+            const noteData = notes[key];
+
+            document.getElementById('reviewNote').value = noteData ? noteData.note : '';
+            updateNoteIndicator();
+        }
+
+        function updateNoteIndicator() {
+            const notes = getAllNotes();
+            const key = getSlideKey();
+            const indicator = document.getElementById('noteIndicator');
+            indicator.classList.toggle('show', !!notes[key]);
+        }
+
+        function exportNotes() {
+            const notes = getAllNotes();
+            const keys = Object.keys(notes).sort((a, b) => {
+                const [, h1, v1] = a.split('_').map(Number);
+                const [, h2, v2] = b.split('_').map(Number);
+                return h1 - h2 || v1 - v2;
+            });
+
+            if (keys.length === 0) {
+                alert('저장된 메모가 없습니다.');
+                return;
+            }
+
+            let exportText = '# AI 개발 효율화 발표자료 - 리뷰 메모\n';
+            exportText += `생성일시: ${new Date().toLocaleString('ko-KR')}\n`;
+            exportText += '─'.repeat(50) + '\n\n';
+
+            keys.forEach(key => {
+                const data = notes[key];
+                exportText += `## ${data.slideInfo}\n`;
+                exportText += `작성시간: ${data.timestamp}\n\n`;
+                exportText += `${data.note}\n\n`;
+                exportText += '─'.repeat(50) + '\n\n';
+            });
+
+            // 다운로드
+            const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `발표_리뷰_메모_${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // 슬라이드 변경 시 메모 로드
+        Reveal.on('slidechanged', () => {
+            if (reviewMode) {
+                loadCurrentNote();
+            }
+            updateNoteIndicator();
+        });
+
+        // 초기화
+        updateNoteIndicator();
+    </script>
 </body>
 </html>
