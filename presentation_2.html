@@ -1687,6 +1687,10 @@
             font-weight: 600;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
             transition: all 0.3s ease;
+            display: none;
+        }
+        .review-toggle.visible {
+            display: block;
         }
         .review-toggle:hover {
             background: #2563eb;
@@ -1976,6 +1980,18 @@
                 loadCurrentNote();
             } else {
                 fetchAllNotes().then(updateNoteIndicator);
+            }
+        });
+
+        // 키보드 단축키: R 키로 리뷰 모드 토글
+        document.addEventListener('keydown', (e) => {
+            // 입력 필드에서는 무시
+            if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+
+            if (e.key === 'r' || e.key === 'R') {
+                const btn = document.querySelector('.review-toggle');
+                btn.classList.add('visible');
+                toggleReviewMode();
             }
         });
 
