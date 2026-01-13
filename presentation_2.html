@@ -457,25 +457,34 @@
             50% { opacity: 0.7; }
         }
 
-        /* 슬라이드 진입 애니메이션 */
-        .reveal .slides section.present .pipeline-step:nth-child(1) .pipeline-node { animation-delay: 0s; }
-        .reveal .slides section.present .pipeline-step:nth-child(2) .pipeline-node { animation-delay: 0.08s; }
-        .reveal .slides section.present .pipeline-step:nth-child(3) .pipeline-node { animation-delay: 0.16s; }
-        .reveal .slides section.present .pipeline-step:nth-child(4) .pipeline-node { animation-delay: 0.24s; }
-        .reveal .slides section.present .pipeline-step:nth-child(5) .pipeline-node { animation-delay: 0.32s; }
-        .reveal .slides section.present .pipeline-step:nth-child(6) .pipeline-node { animation-delay: 0.4s; }
+        /* 슬라이드 진입 애니메이션 - dimmed 노드만 */
+        .reveal .slides section.present .pipeline-step.dimmed .pipeline-node {
+            animation: nodeAppear 0.3s ease-out forwards;
+        }
 
         @keyframes nodeAppear {
             from { opacity: 0; transform: scale(0.5); }
             to { opacity: 1; transform: scale(1); }
         }
 
-        .reveal .slides section.present .pipeline-step .pipeline-node {
-            animation: nodeAppear 0.3s ease-out forwards;
+        /* active 노드: glow + bounce 애니메이션 */
+        .reveal .slides section.present .pipeline-step .pipeline-node.active.l0 {
+            animation: pulse-gray 1.5s infinite, bounce 2s infinite;
         }
-
-        .reveal .slides section.present .pipeline-step.dimmed .pipeline-node {
-            animation: nodeAppear 0.3s ease-out forwards;
+        .reveal .slides section.present .pipeline-step .pipeline-node.active.l1 {
+            animation: pulse-yellow 1.5s infinite, bounce 2s infinite;
+        }
+        .reveal .slides section.present .pipeline-step .pipeline-node.active.l2 {
+            animation: pulse-green 1.5s infinite, bounce 2s infinite;
+        }
+        .reveal .slides section.present .pipeline-step .pipeline-node.active.l3 {
+            animation: pulse-cyan 1.5s infinite, bounce 2s infinite;
+        }
+        .reveal .slides section.present .pipeline-step .pipeline-node.active.l4 {
+            animation: pulse-purple 1.5s infinite, bounce 2s infinite;
+        }
+        .reveal .slides section.present .pipeline-step .pipeline-node.active.l5 {
+            animation: pulse-pink 1.5s infinite, bounce 2s infinite;
         }
     </style>
 </head>
