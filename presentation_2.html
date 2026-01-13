@@ -42,6 +42,7 @@
         }
 
         .reveal .small { font-size: 0.7em; color: var(--text-muted); }
+        .reveal .xsmall { font-size: 0.6em; color: var(--text-muted); }
         .reveal .highlight { color: var(--primary-color); font-weight: 700; }
         .reveal .highlight-green { color: var(--secondary-color); font-weight: 700; }
         .reveal .highlight-yellow { color: var(--warning-color); font-weight: 700; }
@@ -83,6 +84,22 @@
         .reveal .stat-box.yellow {
             background: linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(217, 119, 6, 0.15) 100%);
             border-color: rgba(217, 119, 6, 0.2);
+        }
+
+        .reveal .stat-box.cyan {
+            background: linear-gradient(135deg, rgba(8, 145, 178, 0.08) 0%, rgba(8, 145, 178, 0.15) 100%);
+            border-color: rgba(8, 145, 178, 0.2);
+        }
+
+        .reveal .stat-box.gray {
+            background: linear-gradient(135deg, rgba(156, 163, 175, 0.08) 0%, rgba(156, 163, 175, 0.15) 100%);
+            border-color: rgba(156, 163, 175, 0.2);
+        }
+
+        .reveal .stat-box.compact {
+            padding: 16px;
+            min-width: 140px;
+            margin: 8px;
         }
 
         .reveal table {
@@ -148,7 +165,7 @@
         .two-column {
             display: flex;
             gap: 30px;
-            align-items: flex-start;
+            align-items: stretch;
         }
 
         .two-column > div { flex: 1; }
@@ -156,7 +173,7 @@
         .three-column {
             display: flex;
             gap: 20px;
-            align-items: flex-start;
+            align-items: stretch;
         }
 
         .three-column > div { flex: 1; }
@@ -172,6 +189,12 @@
             padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border: 1px solid #e5e7eb;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .card.compact {
+            padding: 12px 16px;
         }
 
         .badge {
@@ -209,10 +232,57 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border-left: 4px solid var(--primary-color);
             text-align: left;
+            height: calc(100% - 16px);
+            box-sizing: border-box;
         }
 
         .model-card.opensource {
             border-left-color: var(--secondary-color);
+        }
+
+        /* 파이프라인 스타일 */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-item {
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            background: #e5e7eb;
+            color: #6b7280;
+        }
+
+        .pipeline-item.active {
+            opacity: 1;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .pipeline-item.l0 { background: #f3f4f6; color: #6b7280; }
+        .pipeline-item.l1 { background: #fef3c7; color: #92400e; }
+        .pipeline-item.l2 { background: #d9f99d; color: #3f6212; }
+        .pipeline-item.l3 { background: #a5f3fc; color: #155e75; }
+        .pipeline-item.l4 { background: #ddd6fe; color: #5b21b6; }
+        .pipeline-item.l5 { background: #fbcfe8; color: #9d174d; }
+
+        .pipeline-item.active.l0 { background: #9ca3af; color: white; }
+        .pipeline-item.active.l1 { background: #d97706; color: white; }
+        .pipeline-item.active.l2 { background: #65a30d; color: white; }
+        .pipeline-item.active.l3 { background: #0891b2; color: white; }
+        .pipeline-item.active.l4 { background: #7c3aed; color: white; }
+        .pipeline-item.active.l5 { background: #db2777; color: white; }
+
+        .pipeline-arrow {
+            font-size: 1.2em;
+            color: #9ca3af;
         }
     </style>
 </head>
@@ -388,27 +458,27 @@
                     <h3>주요 오픈소스 모델</h3>
                     <div class="three-column" style="margin-top: 20px;">
                         <div class="model-card opensource">
-                            <h4 style="color: var(--secondary-color); margin: 0 0 10px 0;">DeepSeek 시리즈</h4>
-                            <p class="small" style="margin: 0;">중국 DeepSeek사</p>
-                            <ul class="small" style="margin: 10px 0 0 0; padding-left: 20px;">
+                            <h4 style="color: var(--secondary-color); margin: 0 0 8px 0; font-size: 1em;">DeepSeek 시리즈</h4>
+                            <p class="xsmall" style="margin: 0;">중국 DeepSeek사</p>
+                            <ul class="xsmall" style="margin: 8px 0 0 0; padding-left: 16px;">
                                 <li>DeepSeek-V3: 671B MoE</li>
                                 <li>DeepSeek-R1: o1급 추론</li>
                                 <li>저비용 학습, 오픈소스</li>
                             </ul>
                         </div>
                         <div class="model-card opensource">
-                            <h4 style="color: var(--secondary-color); margin: 0 0 10px 0;">Qwen 시리즈</h4>
-                            <p class="small" style="margin: 0;">알리바바</p>
-                            <ul class="small" style="margin: 10px 0 0 0; padding-left: 20px;">
+                            <h4 style="color: var(--secondary-color); margin: 0 0 8px 0; font-size: 1em;">Qwen 시리즈</h4>
+                            <p class="xsmall" style="margin: 0;">알리바바</p>
+                            <ul class="xsmall" style="margin: 8px 0 0 0; padding-left: 16px;">
                                 <li>119개 언어 지원</li>
                                 <li>300+ 프로그래밍 언어</li>
                                 <li>긴 컨텍스트 지원</li>
                             </ul>
                         </div>
                         <div class="model-card opensource">
-                            <h4 style="color: var(--secondary-color); margin: 0 0 10px 0;">GLM 시리즈</h4>
-                            <p class="small" style="margin: 0;">Z.AI/Zhipu (중국)</p>
-                            <ul class="small" style="margin: 10px 0 0 0; padding-left: 20px;">
+                            <h4 style="color: var(--secondary-color); margin: 0 0 8px 0; font-size: 1em;">GLM 시리즈</h4>
+                            <p class="xsmall" style="margin: 0;">Z.AI/Zhipu (중국)</p>
+                            <ul class="xsmall" style="margin: 8px 0 0 0; padding-left: 16px;">
                                 <li>도구 호출 90.6% 성공</li>
                                 <li>355B 중 32B만 활성화</li>
                                 <li>효율적 MoE 구조</li>
@@ -417,45 +487,47 @@
                     </div>
                 </section>
 
+                <!-- 12번: 핵심 숫자 - 수정됨 -->
                 <section>
                     <h3>핵심 숫자</h3>
-                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 30px;">
-                        <div class="stat-box">
-                            <div class="big-number highlight">29%→93%</div>
-                            <p style="margin: 0;">상용 LLM 4년 성장</p>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 20px;">
+                        <div class="stat-box compact">
+                            <div style="font-size: 2.2em; font-weight: 700; color: var(--primary-color);">29%→93%</div>
+                            <p style="margin: 5px 0 0 0; font-size: 0.8em;">상용 LLM 4년 성장</p>
                         </div>
-                        <div class="stat-box green">
-                            <div class="big-number highlight-green">0%→91%</div>
-                            <p style="margin: 0;">오픈소스 4년 성장</p>
+                        <div class="stat-box green compact">
+                            <div style="font-size: 2.2em; font-weight: 700; color: var(--secondary-color);">0%→91%</div>
+                            <p style="margin: 5px 0 0 0; font-size: 0.8em;">오픈소스 4년 성장</p>
                         </div>
-                        <div class="stat-box purple">
-                            <div class="big-number highlight-purple">~79%</div>
-                            <p style="margin: 0;">GitHub 이슈 해결률</p>
+                        <div class="stat-box purple compact">
+                            <div style="font-size: 2.2em; font-weight: 700; color: var(--purple-color);">~79%</div>
+                            <p style="margin: 5px 0 0 0; font-size: 0.8em;">GitHub 이슈 해결률</p>
                         </div>
                     </div>
                 </section>
 
+                <!-- 13번: 시사점 - 카드 정렬 수정됨 -->
                 <section>
                     <h3>시사점</h3>
-                    <div class="two-column" style="margin-top: 30px;">
-                        <div>
-                            <div class="card" style="margin-bottom: 20px;">
-                                <p><span class="icon">🔄</span><strong>격차 해소</strong></p>
-                                <p class="small">오픈소스가 상용 모델 격차를 빠르게 좁히고 있음</p>
+                    <div class="two-column" style="margin-top: 20px;">
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div class="card compact">
+                                <p style="margin: 0;"><span class="icon">🔄</span><strong>격차 해소</strong></p>
+                                <p class="small" style="margin: 5px 0 0 0;">오픈소스가 상용 모델 격차를 빠르게 좁히고 있음</p>
                             </div>
-                            <div class="card">
-                                <p><span class="icon">⚡</span><strong>빠른 진화</strong></p>
-                                <p class="small">6개월마다 판도가 바뀌는 속도</p>
+                            <div class="card compact">
+                                <p style="margin: 0;"><span class="icon">⚡</span><strong>빠른 진화</strong></p>
+                                <p class="small" style="margin: 5px 0 0 0;">6개월마다 판도가 바뀌는 속도</p>
                             </div>
                         </div>
-                        <div>
-                            <div class="card" style="margin-bottom: 20px;">
-                                <p><span class="icon">🎯</span><strong>선택지 다양화</strong></p>
-                                <p class="small">보안/비용에 따라 다양한 선택 가능</p>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div class="card compact">
+                                <p style="margin: 0;"><span class="icon">🎯</span><strong>선택지 다양화</strong></p>
+                                <p class="small" style="margin: 5px 0 0 0;">보안/비용에 따라 다양한 선택 가능</p>
                             </div>
-                            <div class="card">
-                                <p><span class="icon">✅</span><strong>실무 적용 가능</strong></p>
-                                <p class="small">실제 GitHub 이슈의 ~80%를 AI가 해결</p>
+                            <div class="card compact">
+                                <p style="margin: 0;"><span class="icon">✅</span><strong>실무 적용 가능</strong></p>
+                                <p class="small" style="margin: 5px 0 0 0;">실제 GitHub 이슈의 ~80%를 AI가 해결</p>
                             </div>
                         </div>
                     </div>
@@ -471,6 +543,7 @@
                     </p>
                 </section>
 
+                <!-- 성숙도 모델 개요 테이블 -->
                 <section>
                     <h3>성숙도 모델 개요</h3>
                     <table style="font-size: 0.65em;">
@@ -530,14 +603,36 @@
                     </table>
                 </section>
 
+                <!-- 파이프라인 1: 현재 위치 (L1~L2 하이라이트) -->
+                <section>
+                    <h3>현재 우리의 위치</h3>
+                    <div class="pipeline" style="margin: 40px 0;">
+                        <div class="pipeline-item l0">L0<br><span class="xsmall">No AI</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l1 active">L1<br><span class="xsmall">Ad-hoc</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l2 active">L2<br><span class="xsmall">Standardized</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l3">L3<br><span class="xsmall">Repo-aware</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l4">L4<br><span class="xsmall">Agentic</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l5">L5<br><span class="xsmall">Autonomous</span></div>
+                    </div>
+                    <p style="font-size: 1.2em; font-weight: 600; color: var(--warning-color);">
+                        현재 추정: <span class="level-1">L1</span> ~ <span class="level-2">L2</span> 사이
+                    </p>
+                </section>
+
+                <!-- Level 1 상세 -->
                 <section>
                     <h3>Level 1: Ad-hoc (Personal Chat)</h3>
-                    <div class="stat-box yellow" style="display: block; max-width: 800px; margin: 20px auto;">
-                        <h4 class="level-1" style="margin: 0 0 15px 0;">개인이 알아서 "챗"으로 도움받는 수준</h4>
+                    <div class="stat-box yellow" style="display: block; max-width: 800px; margin: 15px auto; padding: 18px;">
+                        <h4 class="level-1" style="margin: 0 0 12px 0;">개인이 알아서 "챗"으로 도움받는 수준</h4>
                         <div class="two-column" style="text-align: left;">
                             <div>
-                                <p><strong>적용 분야</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>적용 분야</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>함수/로직 구현 보조</li>
                                     <li>코드 해석/리딩</li>
                                     <li>간단한 리팩토링 아이디어</li>
@@ -545,8 +640,8 @@
                                 </ul>
                             </div>
                             <div>
-                                <p><strong>판단 기준</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>판단 기준</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>팀 표준/가드레일 없음</li>
                                     <li>AI 산출물 재현/감사 어려움</li>
                                     <li>"잘 쓰는 사람만 성과"</li>
@@ -556,14 +651,15 @@
                     </div>
                 </section>
 
+                <!-- Level 2 상세 -->
                 <section>
                     <h3>Level 2: Standardized (AI Assistant)</h3>
-                    <div class="stat-box green" style="display: block; max-width: 800px; margin: 20px auto;">
-                        <h4 class="level-2" style="margin: 0 0 15px 0;">팀 차원 "필수 적용 지점"을 정해 표준화</h4>
+                    <div class="stat-box green" style="display: block; max-width: 800px; margin: 15px auto; padding: 18px;">
+                        <h4 class="level-2" style="margin: 0 0 12px 0;">팀 차원 "필수 적용 지점"을 정해 표준화</h4>
                         <div class="two-column" style="text-align: left;">
                             <div>
-                                <p><strong>적용 분야</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>적용 분야</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>Code Review 보조 (체크리스트)</li>
                                     <li>SPEC/요구사항 초안</li>
                                     <li>ADR/설계 문서 초안</li>
@@ -571,8 +667,8 @@
                                 </ul>
                             </div>
                             <div>
-                                <p><strong>판단 기준</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>판단 기준</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>"어디에 AI를 쓰는지" 팀 합의</li>
                                     <li>PR 템플릿에 AI 점검 항목</li>
                                     <li>민감정보/보안 가이드 문서화</li>
@@ -582,24 +678,45 @@
                     </div>
                 </section>
 
+                <!-- 파이프라인 2: 단기 목표 (L2~L3 하이라이트) -->
+                <section>
+                    <h3>단기 목표</h3>
+                    <div class="pipeline" style="margin: 40px 0;">
+                        <div class="pipeline-item l0">L0<br><span class="xsmall">No AI</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l1">L1<br><span class="xsmall">Ad-hoc</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l2 active">L2<br><span class="xsmall">Standardized</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l3 active">L3<br><span class="xsmall">Repo-aware</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l4">L4<br><span class="xsmall">Agentic</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l5">L5<br><span class="xsmall">Autonomous</span></div>
+                    </div>
+                    <p style="font-size: 1.2em; font-weight: 600; color: var(--secondary-color);">
+                        단기 목표: <span class="level-2">L2</span> ~ <span class="level-3">L3</span>
+                    </p>
+                </section>
+
+                <!-- Level 3 상세 -->
                 <section>
                     <h3>Level 3: Repo-aware (Mainstream)</h3>
-                    <div class="stat-box" style="display: block; max-width: 800px; margin: 20px auto; border-left: 4px solid #0891b2;">
-                        <h4 class="level-3" style="margin: 0 0 15px 0;">"똑똑한 페어 프로그래머"</h4>
-                        <p class="small" style="margin-bottom: 15px;">AI가 저장소 문맥을 읽고 Repo 단위 변경을 제안/생성</p>
+                    <div class="stat-box cyan" style="display: block; max-width: 800px; margin: 15px auto; padding: 18px;">
+                        <h4 class="level-3" style="margin: 0 0 12px 0;">"똑똑한 페어 프로그래머"</h4>
+                        <p class="small" style="margin: 0 0 12px 0;">AI가 저장소 문맥을 읽고 Repo 단위 변경을 제안/생성</p>
                         <div class="two-column" style="text-align: left;">
                             <div>
-                                <p><strong>적용 분야</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>적용 분야</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>Repo 기반 코드 분석/수정 제안</li>
                                     <li>멀티파일 버그픽스/리팩토링</li>
                                     <li>테스트 보강/커버리지 개선</li>
-                                    <li>문서-코드 동기화</li>
                                 </ul>
                             </div>
                             <div>
-                                <p><strong>판단 기준</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>판단 기준</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>AI 제안이 PR 단위로 추적됨</li>
                                     <li>리뷰 가이드/규칙이 저장소에 존재</li>
                                     <li>"담당자 승인 후 반영" 원칙</li>
@@ -609,51 +726,72 @@
                     </div>
                 </section>
 
+                <!-- Level 4 상세 -->
                 <section>
                     <h3>Level 4: Agentic Flow (AI First)</h3>
-                    <div class="stat-box purple" style="display: block; max-width: 800px; margin: 20px auto;">
-                        <h4 class="level-4" style="margin: 0 0 15px 0;">"주니어 개발자에게 태스크 위임"</h4>
-                        <p class="small" style="margin-bottom: 15px;">업무 흐름의 기본 단위가 "에이전트 작업"</p>
+                    <div class="stat-box purple" style="display: block; max-width: 800px; margin: 15px auto; padding: 18px;">
+                        <h4 class="level-4" style="margin: 0 0 12px 0;">"주니어 개발자에게 태스크 위임"</h4>
+                        <p class="small" style="margin: 0 0 12px 0;">업무 흐름의 기본 단위가 "에이전트 작업"</p>
                         <div class="two-column" style="text-align: left;">
                             <div>
-                                <p><strong>적용 분야</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>적용 분야</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>이슈/티켓 기반 계획 수립</li>
-                                    <li>코드/테스트 작성 + 실행/수정 반복</li>
+                                    <li>코드/테스트 작성 + 실행 반복</li>
                                     <li>PR 생성/릴리즈노트 초안</li>
-                                    <li>기술부채 상시 처리</li>
                                 </ul>
                             </div>
                             <div>
-                                <p><strong>판단 기준</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>판단 기준</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>목표/제약/검증/승인이 주 역할</li>
                                     <li>에이전트 실행 로그 남음</li>
-                                    <li>PR에 자동 요약 + 검증결과 첨부</li>
+                                    <li>PR에 자동 요약 첨부</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </section>
 
+                <!-- 파이프라인 3: 중기 목표 (L4 하이라이트) -->
+                <section>
+                    <h3>중기 목표</h3>
+                    <div class="pipeline" style="margin: 40px 0;">
+                        <div class="pipeline-item l0">L0<br><span class="xsmall">No AI</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l1">L1<br><span class="xsmall">Ad-hoc</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l2">L2<br><span class="xsmall">Standardized</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l3">L3<br><span class="xsmall">Repo-aware</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l4 active">L4<br><span class="xsmall">Agentic</span></div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-item l5">L5<br><span class="xsmall">Autonomous</span></div>
+                    </div>
+                    <p style="font-size: 1.2em; font-weight: 600; color: var(--purple-color);">
+                        중기 목표: <span class="level-4">L4 (Agentic Flow)</span>
+                    </p>
+                </section>
+
+                <!-- Level 5 상세 -->
                 <section>
                     <h3>Level 5: Autonomous (AI Only)</h3>
-                    <div class="stat-box red" style="display: block; max-width: 800px; margin: 20px auto;">
-                        <h4 class="level-5" style="margin: 0 0 15px 0;">정책 기반 AI 자율 수행</h4>
-                        <p class="small" style="margin-bottom: 15px;">변경→검증→배포까지 자율 수행 (미래 목표)</p>
+                    <div class="stat-box red" style="display: block; max-width: 800px; margin: 15px auto; padding: 18px;">
+                        <h4 class="level-5" style="margin: 0 0 12px 0;">정책 기반 AI 자율 수행 (미래 비전)</h4>
+                        <p class="small" style="margin: 0 0 12px 0;">변경→검증→배포까지 자율 수행</p>
                         <div class="two-column" style="text-align: left;">
                             <div>
-                                <p><strong>적용 분야</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>적용 분야</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>Self-healing 패치</li>
                                     <li>자동 회귀 수정/성능 최적화</li>
                                     <li>보안 규칙 위반 자동 수정</li>
-                                    <li>지속적 품질 유지</li>
                                 </ul>
                             </div>
                             <div>
-                                <p><strong>판단 기준</strong></p>
-                                <ul class="small">
+                                <p style="margin: 0 0 5px 0;"><strong>판단 기준</strong></p>
+                                <ul class="small" style="margin: 0;">
                                     <li>정책 기반 자동 승인 체계</li>
                                     <li>강력한 가드레일 필수</li>
                                     <li>저위험 영역부터 부분 적용</li>
@@ -663,42 +801,23 @@
                     </div>
                 </section>
 
-                <section>
-                    <h3>우리의 현재 위치와 목표</h3>
-                    <div style="display: flex; align-items: center; justify-content: center; margin: 40px 0; gap: 15px;">
-                        <div class="stat-box yellow" style="min-width: 150px;">
-                            <p style="margin: 0;"><strong>현재</strong></p>
-                            <p class="big-number level-1" style="font-size: 2em; margin: 10px 0;">L1~L2</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="stat-box green" style="min-width: 150px;">
-                            <p style="margin: 0;"><strong>단기 목표</strong></p>
-                            <p class="big-number level-2" style="font-size: 2em; margin: 10px 0;">L2~L3</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="stat-box purple" style="min-width: 150px;">
-                            <p style="margin: 0;"><strong>중기 목표</strong></p>
-                            <p class="big-number level-4" style="font-size: 2em; margin: 10px 0;">L4</p>
-                        </div>
-                    </div>
-                </section>
-
+                <!-- 적용 범위 -->
                 <section>
                     <h3>적용 범위: 개발 전체 분야</h3>
-                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 40px;">
-                        <div class="stat-box" style="min-width: 100px; padding: 15px;">기획</div>
+                    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 30px;">
+                        <div class="stat-box compact" style="min-width: 90px; padding: 12px;">기획</div>
                         <span class="flow-arrow">→</span>
-                        <div class="stat-box" style="min-width: 100px; padding: 15px;">요구사항</div>
+                        <div class="stat-box compact" style="min-width: 90px; padding: 12px;">요구사항</div>
                         <span class="flow-arrow">→</span>
-                        <div class="stat-box" style="min-width: 100px; padding: 15px;">설계</div>
+                        <div class="stat-box compact" style="min-width: 90px; padding: 12px;">설계</div>
                         <span class="flow-arrow">→</span>
-                        <div class="stat-box" style="min-width: 100px; padding: 15px;">개발</div>
+                        <div class="stat-box compact" style="min-width: 90px; padding: 12px;">개발</div>
                         <span class="flow-arrow">→</span>
-                        <div class="stat-box" style="min-width: 100px; padding: 15px;">검증</div>
+                        <div class="stat-box compact" style="min-width: 90px; padding: 12px;">검증</div>
                         <span class="flow-arrow">→</span>
-                        <div class="stat-box" style="min-width: 100px; padding: 15px;">운영</div>
+                        <div class="stat-box compact" style="min-width: 90px; padding: 12px;">운영</div>
                     </div>
-                    <p style="margin-top: 40px; font-weight: 700; color: var(--warning-color);">
+                    <p style="margin-top: 30px; font-weight: 700; color: var(--warning-color);">
                         개발 영역별 전문 AI 툴 활용 역량이 필수가 될 것
                     </p>
                 </section>
@@ -750,61 +869,59 @@
                     </table>
                 </section>
 
+                <!-- 25번: 옵션별 상세 비교 - 수정됨 -->
                 <section>
                     <h3>옵션별 상세 비교</h3>
-                    <div class="two-column" style="margin-top: 20px;">
-                        <div>
-                            <div class="card" style="margin-bottom: 15px; border-left: 4px solid var(--secondary-color);">
-                                <h4 style="margin: 0 0 10px 0;">🏠 완전 내재화</h4>
-                                <p class="small"><strong>장점:</strong> 최고 수준 보안, 데이터 완전 통제</p>
-                                <p class="small"><strong>단점:</strong> 높은 인프라 비용, 모델 업데이트 부담</p>
-                                <p class="small"><strong>적합:</strong> 금융, 국방 등 고보안 환경</p>
+                    <div class="two-column" style="margin-top: 15px; gap: 15px;">
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div class="card compact" style="border-left: 4px solid var(--secondary-color);">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.95em;">🏠 완전 내재화</h4>
+                                <p class="xsmall" style="margin: 2px 0;"><strong>장점:</strong> 최고 보안, 데이터 통제</p>
+                                <p class="xsmall" style="margin: 2px 0;"><strong>단점:</strong> 높은 비용, 업데이트 부담</p>
                             </div>
-                            <div class="card" style="border-left: 4px solid var(--warning-color);">
-                                <h4 style="margin: 0 0 10px 0;">⚡ 하이브리드 A</h4>
-                                <p class="small"><strong>장점:</strong> 빠른 도입, 최신 모델 사용</p>
-                                <p class="small"><strong>단점:</strong> 코드 일부가 외부 전송</p>
-                                <p class="small"><strong>적합:</strong> 일반 기업 (민감 코드 필터링 필수)</p>
+                            <div class="card compact" style="border-left: 4px solid var(--warning-color);">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.95em;">⚡ 하이브리드 A</h4>
+                                <p class="xsmall" style="margin: 2px 0;"><strong>장점:</strong> 빠른 도입, 최신 모델</p>
+                                <p class="xsmall" style="margin: 2px 0;"><strong>단점:</strong> 코드 일부 외부 전송</p>
                             </div>
                         </div>
-                        <div>
-                            <div class="card" style="margin-bottom: 15px; border-left: 4px solid var(--warning-color);">
-                                <h4 style="margin: 0 0 10px 0;">🔒 하이브리드 B</h4>
-                                <p class="small"><strong>장점:</strong> LLM 데이터 통제, 유연한 환경</p>
-                                <p class="small"><strong>단점:</strong> 복잡한 구성</p>
-                                <p class="small"><strong>적합:</strong> 클라우드 개발환경 사용 기업</p>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div class="card compact" style="border-left: 4px solid var(--warning-color);">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.95em;">🔒 하이브리드 B</h4>
+                                <p class="xsmall" style="margin: 2px 0;"><strong>장점:</strong> LLM 데이터 통제</p>
+                                <p class="xsmall" style="margin: 2px 0;"><strong>단점:</strong> 복잡한 구성</p>
                             </div>
-                            <div class="card" style="border-left: 4px solid var(--accent-color);">
-                                <h4 style="margin: 0 0 10px 0;">☁️ 완전 외부화</h4>
-                                <p class="small"><strong>장점:</strong> 가장 빠른 도입, 낮은 초기 비용</p>
-                                <p class="small"><strong>단점:</strong> 보안 위험 높음</p>
-                                <p class="small"><strong>적합:</strong> 스타트업, 비민감 프로젝트</p>
+                            <div class="card compact" style="border-left: 4px solid var(--accent-color);">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.95em;">☁️ 완전 외부화</h4>
+                                <p class="xsmall" style="margin: 2px 0;"><strong>장점:</strong> 빠른 도입, 낮은 초기 비용</p>
+                                <p class="xsmall" style="margin: 2px 0;"><strong>단점:</strong> 보안 위험</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
+                <!-- 26번: 보안 준수 원칙 - 수정됨 -->
                 <section>
                     <h3>보안 준수 원칙</h3>
-                    <div style="text-align: left; max-width: 750px; margin: 30px auto;">
-                        <div class="card" style="margin-bottom: 15px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 750px; margin: 20px auto;">
+                        <div class="card compact">
                             <p style="margin: 0;"><span class="icon">🛡️</span><strong>코드 유출 방지</strong></p>
-                            <p class="small" style="margin: 5px 0 0 40px;">민감 코드 외부 전송 차단</p>
+                            <p class="small" style="margin: 3px 0 0 0;">민감 코드 외부 전송 차단</p>
                         </div>
-                        <div class="card" style="margin-bottom: 15px;">
+                        <div class="card compact">
                             <p style="margin: 0;"><span class="icon">🔍</span><strong>민감정보 필터링</strong></p>
-                            <p class="small" style="margin: 5px 0 0 40px;">API 키, 인증정보 자동 마스킹</p>
+                            <p class="small" style="margin: 3px 0 0 0;">API 키, 인증정보 자동 마스킹</p>
                         </div>
-                        <div class="card" style="margin-bottom: 15px;">
+                        <div class="card compact">
                             <p style="margin: 0;"><span class="icon">📝</span><strong>감사 로그 체계</strong></p>
-                            <p class="small" style="margin: 5px 0 0 40px;">AI 사용 내역 추적 가능</p>
+                            <p class="small" style="margin: 3px 0 0 0;">AI 사용 내역 추적 가능</p>
                         </div>
-                        <div class="card">
+                        <div class="card compact">
                             <p style="margin: 0;"><span class="icon">✅</span><strong>승인 프로세스</strong></p>
-                            <p class="small" style="margin: 5px 0 0 40px;">AI 생성 코드 리뷰 필수</p>
+                            <p class="small" style="margin: 3px 0 0 0;">AI 생성 코드 리뷰 필수</p>
                         </div>
                     </div>
-                    <p style="color: var(--warning-color); font-weight: 600; margin-top: 20px;">
+                    <p style="color: var(--warning-color); font-weight: 600; margin-top: 15px;">
                         현재 상태: 깊이 검토 중, 보안 준수 최우선
                     </p>
                 </section>
@@ -819,64 +936,65 @@
                     </p>
                 </section>
 
+                <!-- 28번: 협의체 구성 - 수정됨 -->
                 <section>
                     <h3>협의체 구성</h3>
-                    <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin: 40px 0;">
-                        <div class="stat-box" style="min-width: 150px;">
-                            <p style="font-size: 2em; margin: 0;">👨‍💻</p>
-                            <p style="margin: 10px 0 0 0;"><strong>개발 리드</strong></p>
-                            <p class="small">기술 검토, 도구 선정</p>
+                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 25px 0;">
+                        <div class="stat-box compact" style="min-width: 130px;">
+                            <p style="font-size: 1.8em; margin: 0;">👨‍💻</p>
+                            <p style="margin: 8px 0 0 0; font-size: 0.9em;"><strong>개발 리드</strong></p>
+                            <p class="xsmall">기술 검토, 도구 선정</p>
                         </div>
-                        <div class="stat-box" style="min-width: 150px;">
-                            <p style="font-size: 2em; margin: 0;">🔒</p>
-                            <p style="margin: 10px 0 0 0;"><strong>보안</strong></p>
-                            <p class="small">보안 정책, 가이드라인</p>
+                        <div class="stat-box compact" style="min-width: 130px;">
+                            <p style="font-size: 1.8em; margin: 0;">🔒</p>
+                            <p style="margin: 8px 0 0 0; font-size: 0.9em;"><strong>보안</strong></p>
+                            <p class="xsmall">보안 정책, 가이드라인</p>
                         </div>
-                        <div class="stat-box" style="min-width: 150px;">
-                            <p style="font-size: 2em; margin: 0;">🖥️</p>
-                            <p style="margin: 10px 0 0 0;"><strong>인프라</strong></p>
-                            <p class="small">환경 구축, 운영</p>
+                        <div class="stat-box compact" style="min-width: 130px;">
+                            <p style="font-size: 1.8em; margin: 0;">🖥️</p>
+                            <p style="margin: 8px 0 0 0; font-size: 0.9em;"><strong>인프라</strong></p>
+                            <p class="xsmall">환경 구축, 운영</p>
                         </div>
-                        <div class="stat-box" style="min-width: 150px;">
-                            <p style="font-size: 2em; margin: 0;">🙋</p>
-                            <p style="margin: 10px 0 0 0;"><strong>현업 개발자</strong></p>
-                            <p class="small">실사용 피드백</p>
+                        <div class="stat-box compact" style="min-width: 130px;">
+                            <p style="font-size: 1.8em; margin: 0;">🙋</p>
+                            <p style="margin: 8px 0 0 0; font-size: 0.9em;"><strong>현업 개발자</strong></p>
+                            <p class="xsmall">실사용 피드백</p>
                         </div>
                     </div>
                 </section>
 
                 <section>
                     <h3>협의체 역할</h3>
-                    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 40px 0;">
-                        <div class="stat-box" style="padding: 20px;">
-                            <p style="font-size: 1.5em; margin: 0;">🔍</p>
-                            <p style="margin: 10px 0 0 0;"><strong>도구 검토<br>및 선정</strong></p>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin: 30px 0; flex-wrap: wrap;">
+                        <div class="stat-box compact" style="padding: 15px;">
+                            <p style="font-size: 1.3em; margin: 0;">🔍</p>
+                            <p style="margin: 8px 0 0 0; font-size: 0.85em;"><strong>도구 검토<br>및 선정</strong></p>
                         </div>
                         <span class="flow-arrow">→</span>
-                        <div class="stat-box" style="padding: 20px;">
-                            <p style="font-size: 1.5em; margin: 0;">📋</p>
-                            <p style="margin: 10px 0 0 0;"><strong>가이드라인<br>수립</strong></p>
+                        <div class="stat-box compact" style="padding: 15px;">
+                            <p style="font-size: 1.3em; margin: 0;">📋</p>
+                            <p style="margin: 8px 0 0 0; font-size: 0.85em;"><strong>가이드라인<br>수립</strong></p>
                         </div>
                         <span class="flow-arrow">→</span>
-                        <div class="stat-box" style="padding: 20px;">
-                            <p style="font-size: 1.5em; margin: 0;">📊</p>
-                            <p style="margin: 10px 0 0 0;"><strong>성과 측정<br>및 분석</strong></p>
+                        <div class="stat-box compact" style="padding: 15px;">
+                            <p style="font-size: 1.3em; margin: 0;">📊</p>
+                            <p style="margin: 8px 0 0 0; font-size: 0.85em;"><strong>성과 측정<br>및 분석</strong></p>
                         </div>
                         <span class="flow-arrow">→</span>
-                        <div class="stat-box" style="padding: 20px;">
-                            <p style="font-size: 1.5em; margin: 0;">🔄</p>
-                            <p style="margin: 10px 0 0 0;"><strong>피드백<br>반영</strong></p>
+                        <div class="stat-box compact" style="padding: 15px;">
+                            <p style="font-size: 1.3em; margin: 0;">🔄</p>
+                            <p style="margin: 8px 0 0 0; font-size: 0.85em;"><strong>피드백<br>반영</strong></p>
                         </div>
                     </div>
                 </section>
 
                 <section>
                     <h3>왜 개인 개발자에게도 중요한가?</h3>
-                    <div class="two-column" style="margin-top: 30px;">
+                    <div class="two-column" style="margin-top: 20px; gap: 20px;">
                         <div>
-                            <h4 class="highlight" style="text-align: center;">🏢 회사 관점</h4>
-                            <div class="card" style="text-align: left;">
-                                <ul style="margin: 0;">
+                            <h4 class="highlight" style="text-align: center; margin-bottom: 10px;">🏢 회사 관점</h4>
+                            <div class="card compact" style="text-align: left;">
+                                <ul style="margin: 0; font-size: 0.85em;">
                                     <li>생산성 향상</li>
                                     <li>품질 개선</li>
                                     <li>제품 경쟁력</li>
@@ -884,17 +1002,17 @@
                             </div>
                         </div>
                         <div>
-                            <h4 class="highlight-green" style="text-align: center;">👤 개인 관점</h4>
-                            <div class="card" style="text-align: left;">
-                                <ul style="margin: 0;">
-                                    <li><strong>시장 가치 상승</strong><br><span class="small">AI 역량 = 필수 스킬</span></li>
-                                    <li><strong>반복 작업 감소</strong><br><span class="small">핵심 역량에 집중</span></li>
-                                    <li><strong>회사 지원으로 학습</strong><br><span class="small">러닝 커브 완화</span></li>
+                            <h4 class="highlight-green" style="text-align: center; margin-bottom: 10px;">👤 개인 관점</h4>
+                            <div class="card compact" style="text-align: left;">
+                                <ul style="margin: 0; font-size: 0.85em;">
+                                    <li><strong>시장 가치 상승</strong> - AI 역량 필수</li>
+                                    <li><strong>반복 작업 감소</strong> - 핵심 역량 집중</li>
+                                    <li><strong>회사 지원 학습</strong> - 러닝 커브 완화</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <p style="margin-top: 40px; font-weight: 700; color: var(--secondary-color); font-size: 1.2em;">
+                    <p style="margin-top: 25px; font-weight: 700; color: var(--secondary-color); font-size: 1.1em;">
                         개발자 역할 변화: 구현 중심 → 설계 중심
                     </p>
                 </section>
@@ -911,29 +1029,29 @@
 
                 <section>
                     <h3>단계별 타임라인</h3>
-                    <div class="timeline" style="max-width: 750px; margin: 30px auto;">
-                        <div class="timeline-item">
+                    <div class="timeline" style="max-width: 700px; margin: 25px auto;">
+                        <div class="timeline-item" style="margin-bottom: 22px;">
                             <strong class="highlight">2025 Q2</strong> - 파일럿 시작 <span class="badge badge-orange">L1→L2</span>
-                            <p class="small" style="margin: 5px 0 0 0;">선정팀 적용, 도구 검증</p>
+                            <p class="small" style="margin: 3px 0 0 0;">선정팀 적용, 도구 검증</p>
                         </div>
-                        <div class="timeline-item">
+                        <div class="timeline-item" style="margin-bottom: 22px;">
                             <strong class="highlight">2025 Q3</strong> - Level 2 확산 <span class="badge badge-green">L2</span>
-                            <p class="small" style="margin: 5px 0 0 0;">팀 표준화, 가이드라인 배포</p>
+                            <p class="small" style="margin: 3px 0 0 0;">팀 표준화, 가이드라인 배포</p>
                         </div>
-                        <div class="timeline-item">
+                        <div class="timeline-item" style="margin-bottom: 22px;">
                             <strong class="highlight">2025 H2</strong> - Level 3 도입 <span class="badge badge-blue">L2→L3</span>
-                            <p class="small" style="margin: 5px 0 0 0;">Repo-aware 도구, 오픈소스 LLM 활용 정착</p>
+                            <p class="small" style="margin: 3px 0 0 0;">Repo-aware 도구, 오픈소스 LLM 활용</p>
                         </div>
-                        <div class="timeline-item">
+                        <div class="timeline-item" style="margin-bottom: 0;">
                             <strong class="highlight">2026</strong> - Level 4 시범 <span class="badge badge-blue">L3→L4</span>
-                            <p class="small" style="margin: 5px 0 0 0;">Agentic 파일럿, 자동화 확대</p>
+                            <p class="small" style="margin: 3px 0 0 0;">Agentic 파일럿, 자동화 확대</p>
                         </div>
                     </div>
                 </section>
 
                 <section>
                     <h3>단계별 상세</h3>
-                    <table style="font-size: 0.7em;">
+                    <table style="font-size: 0.68em;">
                         <thead>
                             <tr>
                                 <th>단계</th>
@@ -945,25 +1063,25 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>파일럿</strong><br>(Q2)</td>
+                                <td><strong>파일럿</strong> (Q2)</td>
                                 <td>선정 2-3개 팀</td>
                                 <td>Copilot, Cursor</td>
                                 <td>사용성, 만족도</td>
-                                <td>파일럿 보고서<br>초기 가이드라인</td>
+                                <td>파일럿 보고서</td>
                             </tr>
                             <tr>
-                                <td><strong>확산</strong><br>(Q3)</td>
+                                <td><strong>확산</strong> (Q3)</td>
                                 <td>전체 개발팀</td>
                                 <td>표준 도구 세트</td>
-                                <td>PR 리뷰 시간<br>코드 품질</td>
-                                <td>적용 가이드<br>교육 자료</td>
+                                <td>PR 리뷰 시간</td>
+                                <td>적용 가이드</td>
                             </tr>
                             <tr>
-                                <td><strong>고도화</strong><br>(H2~)</td>
+                                <td><strong>고도화</strong> (H2~)</td>
                                 <td>핵심 프로젝트</td>
-                                <td>Claude Code 등<br>Agent 도구</td>
-                                <td>자동화율<br>생산성 향상률</td>
-                                <td>자동화 파이프라인<br>운영 가이드</td>
+                                <td>Agent 도구</td>
+                                <td>자동화율</td>
+                                <td>운영 가이드</td>
                             </tr>
                         </tbody>
                     </table>
@@ -971,16 +1089,16 @@
 
                 <section>
                     <h3>사업부 전략 연계</h3>
-                    <div class="card" style="max-width: 700px; margin: 30px auto; text-align: left;">
-                        <h4 style="margin: 0 0 20px 0; color: var(--primary-color);">현재 바라보는 방향</h4>
-                        <ul style="margin: 0;">
+                    <div class="card" style="max-width: 650px; margin: 25px auto; text-align: left; padding: 20px;">
+                        <h4 style="margin: 0 0 15px 0; color: var(--primary-color);">현재 바라보는 방향</h4>
+                        <ul style="margin: 0; font-size: 0.9em;">
                             <li><strong>메인 개발</strong>은 사내에서 진행</li>
                             <li><strong>신규 모듈</strong>은 사외에서도 충분히 개발 가능</li>
                             <li>개발 전체 분야에 AI 적용:
-                                <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                <div style="margin-top: 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                                     <span class="badge badge-blue">기획</span>
                                     <span>→</span>
-                                    <span class="badge badge-blue">요구사항 명세</span>
+                                    <span class="badge badge-blue">요구사항</span>
                                     <span>→</span>
                                     <span class="badge badge-blue">설계</span>
                                     <span>→</span>
@@ -1003,31 +1121,31 @@
 
                 <section>
                     <h3>정성적 목표</h3>
-                    <div style="display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 30px;">
-                        <div class="stat-box" style="min-width: 220px;">
-                            <p style="font-size: 2.5em; margin: 0;">📈</p>
-                            <p style="margin: 15px 0 5px 0;"><strong>품질 향상</strong></p>
-                            <ul class="small" style="text-align: left; margin: 0;">
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 25px;">
+                        <div class="stat-box compact" style="min-width: 200px;">
+                            <p style="font-size: 2em; margin: 0;">📈</p>
+                            <p style="margin: 10px 0 5px 0;"><strong>품질 향상</strong></p>
+                            <ul class="xsmall" style="text-align: left; margin: 0; padding-left: 20px;">
                                 <li>AI 코드리뷰로 버그 조기 발견</li>
                                 <li>일관된 코드 스타일 유지</li>
                                 <li>테스트 커버리지 개선</li>
                             </ul>
                         </div>
-                        <div class="stat-box green" style="min-width: 220px;">
-                            <p style="font-size: 2.5em; margin: 0;">🚀</p>
-                            <p style="margin: 15px 0 5px 0;"><strong>경쟁력 강화</strong></p>
-                            <ul class="small" style="text-align: left; margin: 0;">
+                        <div class="stat-box green compact" style="min-width: 200px;">
+                            <p style="font-size: 2em; margin: 0;">🚀</p>
+                            <p style="margin: 10px 0 5px 0;"><strong>경쟁력 강화</strong></p>
+                            <ul class="xsmall" style="text-align: left; margin: 0; padding-left: 20px;">
                                 <li>빠른 기능 출시</li>
                                 <li>기술 부채 체계적 관리</li>
                                 <li>신기술 빠른 적용</li>
                             </ul>
                         </div>
-                        <div class="stat-box purple" style="min-width: 220px;">
-                            <p style="font-size: 2.5em; margin: 0;">⚡</p>
-                            <p style="margin: 15px 0 5px 0;"><strong>생산성 향상</strong></p>
-                            <ul class="small" style="text-align: left; margin: 0;">
+                        <div class="stat-box purple compact" style="min-width: 200px;">
+                            <p style="font-size: 2em; margin: 0;">⚡</p>
+                            <p style="margin: 10px 0 5px 0;"><strong>생산성 향상</strong></p>
+                            <ul class="xsmall" style="text-align: left; margin: 0; padding-left: 20px;">
                                 <li>반복 작업 자동화</li>
-                                <li>개발자가 핵심 업무에 집중</li>
+                                <li>핵심 업무에 집중</li>
                                 <li>온보딩 시간 단축</li>
                             </ul>
                         </div>
@@ -1036,17 +1154,17 @@
 
                 <section>
                     <h3>정량적 목표 (측정 예정)</h3>
-                    <div class="card" style="max-width: 700px; margin: 20px auto; padding: 15px; background: #fef3c7; border-color: var(--warning-color);">
-                        <p style="margin: 0; color: var(--warning-color);">
+                    <div class="card compact" style="max-width: 600px; margin: 15px auto; background: #fef3c7; border-color: var(--warning-color);">
+                        <p style="margin: 0; color: var(--warning-color); font-size: 0.9em;">
                             <strong>⚠️ 아직 미정</strong> - 협의체에서 확인해나가야 함
                         </p>
                     </div>
-                    <table style="font-size: 0.8em; margin-top: 20px;">
+                    <table style="font-size: 0.75em; margin-top: 15px;">
                         <thead>
                             <tr>
                                 <th>측정 지표</th>
                                 <th>측정 방법</th>
-                                <th>목표 방향</th>
+                                <th>목표</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1072,7 +1190,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p style="margin-top: 30px; color: var(--primary-color); font-weight: 600;">
+                    <p style="margin-top: 20px; color: var(--primary-color); font-weight: 600;">
                         "파일럿을 통해 실측하고, 데이터로 증명하겠다"
                     </p>
                 </section>
