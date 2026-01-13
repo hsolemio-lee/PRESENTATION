@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 기반 개발 효율화 방안</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/night.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.6em; }
+        .reveal h3 { font-size: 1.3em; }
+        .reveal p, .reveal li { font-size: 0.85em; }
+        .reveal .small { font-size: 0.7em; }
+        .reveal .highlight { color: #42affa; font-weight: bold; }
+        .reveal .highlight-green { color: #4ade80; font-weight: bold; }
+        .reveal .highlight-yellow { color: #fbbf24; font-weight: bold; }
+        .reveal .highlight-red { color: #f87171; font-weight: bold; }
+        .reveal .big-number { font-size: 3em; font-weight: bold; margin: 0.2em 0; }
+        .reveal .stat-box { 
+            background: rgba(66, 175, 250, 0.15); 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin: 10px;
+            display: inline-block;
+            min-width: 200px;
+        }
+        .reveal .stat-box.green { background: rgba(74, 222, 128, 0.15); }
+        .reveal .stat-box.purple { background: rgba(168, 85, 247, 0.15); }
+        .reveal .stat-box.red { background: rgba(248, 113, 113, 0.15); }
+        .reveal table { font-size: 0.75em; margin: 0 auto; }
+        .reveal table th { background: rgba(66, 175, 250, 0.3); }
+        .reveal table td, .reveal table th { padding: 12px 16px; border: 1px solid #444; }
+        .reveal .level-table td:first-child { font-weight: bold; }
+        .reveal .level-0 { color: #9ca3af; }
+        .reveal .level-1 { color: #fbbf24; }
+        .reveal .level-2 { color: #a3e635; }
+        .reveal .level-3 { color: #22d3ee; }
+        .reveal .level-4 { color: #818cf8; }
+        .reveal .level-5 { color: #f472b6; }
+        .reveal .matrix-table td { text-align: center; vertical-align: middle; }
+        .reveal .timeline { text-align: left; padding-left: 40px; }
+        .reveal .timeline-item { 
+            position: relative; 
+            padding-left: 30px; 
+            margin-bottom: 25px;
+            border-left: 3px solid #42affa;
+        }
+        .reveal .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: #42affa;
+            border-radius: 50%;
+        }
+        .chart-container { 
+            width: 100%; 
+            max-width: 800px; 
+            height: 350px; 
+            margin: 0 auto; 
+        }
+        .two-column { display: flex; gap: 30px; align-items: flex-start; }
+        .two-column > div { flex: 1; }
+        .icon { font-size: 1.5em; margin-right: 10px; }
+        .fragment.current-visible.visible:not(.current-fragment) { display: none; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- 표지 -->
+            <section>
+                <h1>🚀 AI 기반 개발 효율화 방안</h1>
+                <p style="margin-top: 40px; color: #9ca3af;">Development Efficiency with AI</p>
+                <p class="small" style="margin-top: 60px; color: #6b7280;">2025</p>
+            </section>
+
+            <!-- 목차 -->
+            <section>
+                <h2>📋 목차</h2>
+                <ol style="font-size: 0.9em;">
+                    <li>왜 지금인가? - 외부 환경 변화</li>
+                    <li>LLM 성능 진화 현황</li>
+                    <li>AI 활용 성숙도 모델</li>
+                    <li>외부 LLM 활용 구조</li>
+                    <li>추진 체계 - 협의체 운영</li>
+                    <li>로드맵</li>
+                    <li>목표 및 기대 효과</li>
+                </ol>
+            </section>
+
+            <!-- 섹션 1: 왜 지금인가 -->
+            <section>
+                <section>
+                    <h2>1️⃣ 왜 지금인가?</h2>
+                    <p class="highlight" style="font-size: 1.3em;">외부는 이미 다 바뀌었다</p>
+                </section>
+                
+                <section>
+                    <h3>채용 시장의 변화</h3>
+                    <div class="stat-box red" style="display: block; max-width: 600px; margin: 30px auto;">
+                        <p style="font-size: 1.2em; margin: 0;">
+                            <span class="highlight-red">"AI 툴 활용 역량"</span><br>
+                            이제 <strong>채용 조건</strong>이다
+                        </p>
+                    </div>
+                    <ul style="margin-top: 30px;">
+                        <li>GitHub Copilot, Cursor 경험 우대</li>
+                        <li>AI 도구 활용 필수화 트렌드</li>
+                        <li>이미 솔루션 개발에 적극 도입 중</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>핵심 메시지</h3>
+                    <div class="big-number highlight-red">⚠️</div>
+                    <p style="font-size: 1.5em; font-weight: bold;">
+                        안 하면 <span class="highlight-red">밀린다</span>
+                    </p>
+                    <p style="color: #9ca3af; margin-top: 30px;">
+                        경쟁사는 이미 AI로 생산성을 높이고 있다
+                    </p>
+                </section>
+            </section>
+
+            <!-- 섹션 2: LLM 성능 진화 -->
+            <section>
+                <section>
+                    <h2>2️⃣ LLM 성능 진화 현황</h2>
+                    <p class="highlight">코딩 AI, 4년간 얼마나 발전했나?</p>
+                </section>
+
+                <section>
+                    <h3>📈 HumanEval 성능 추이 (2021→2025)</h3>
+                    <div class="chart-container">
+                        <canvas id="humanEvalChart"></canvas>
+                    </div>
+                    <p class="small" style="color: #9ca3af;">HumanEval: 164개 Python 코딩 문제 벤치마크</p>
+                </section>
+
+                <section>
+                    <h3>🏆 SWE-bench 2025 순위</h3>
+                    <p class="small" style="color: #9ca3af; margin-bottom: 20px;">실제 GitHub 이슈 해결 능력 측정</p>
+                    <div class="chart-container" style="height: 320px;">
+                        <canvas id="sweBenchChart"></canvas>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>핵심 숫자</h3>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;">
+                        <div class="stat-box">
+                            <div class="big-number highlight">29%→93%</div>
+                            <p>상용 LLM 4년 성장</p>
+                        </div>
+                        <div class="stat-box green">
+                            <div class="big-number highlight-green">0%→91%</div>
+                            <p>오픈소스 4년 성장</p>
+                        </div>
+                        <div class="stat-box purple">
+                            <div class="big-number" style="color: #a855f7;">~79%</div>
+                            <p>GitHub 이슈 해결률</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>💡 시사점</h3>
+                    <div class="two-column" style="margin-top: 30px;">
+                        <div>
+                            <p><span class="icon">🔄</span><strong>격차 해소</strong></p>
+                            <p class="small" style="color: #9ca3af;">오픈소스가 상용을 빠르게 추격</p>
+                            <br>
+                            <p><span class="icon">⚡</span><strong>선택지 다양화</strong></p>
+                            <p class="small" style="color: #9ca3af;">보안/비용에 따라 유연한 선택 가능</p>
+                        </div>
+                        <div>
+                            <p><span class="icon">📈</span><strong>빠른 진화</strong></p>
+                            <p class="small" style="color: #9ca3af;">6개월마다 판도가 바뀌는 속도</p>
+                            <br>
+                            <p><span class="icon">🎯</span><strong>실무 적용 가능</strong></p>
+                            <p class="small" style="color: #9ca3af;">GitHub 이슈의 ~80%를 AI가 해결</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 섹션 3: AI 활용 성숙도 모델 -->
+            <section>
+                <section>
+                    <h2>3️⃣ AI 활용 성숙도 모델</h2>
+                    <p class="highlight">자율주행처럼, AI 개발도 레벨이 있다</p>
+                </section>
+
+                <section>
+                    <h3>성숙도 모델 개요</h3>
+                    <table class="level-table" style="font-size: 0.65em;">
+                        <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>이름</th>
+                                <th>핵심</th>
+                                <th>AI 역할</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="level-0">L0</td>
+                                <td>No AI</td>
+                                <td>AI 활용 없음</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td class="level-1">L1</td>
+                                <td>Ad-hoc</td>
+                                <td>개인이 챗으로 복붙</td>
+                                <td>코드 조각 생성</td>
+                            </tr>
+                            <tr>
+                                <td class="level-2">L2</td>
+                                <td>Standardized</td>
+                                <td>팀 표준화된 적용</td>
+                                <td>리뷰/문서 보조</td>
+                            </tr>
+                            <tr>
+                                <td class="level-3">L3</td>
+                                <td>Repo-aware</td>
+                                <td>저장소 문맥 이해</td>
+                                <td>PR 제안/생성</td>
+                            </tr>
+                            <tr>
+                                <td class="level-4">L4</td>
+                                <td>Agentic Flow</td>
+                                <td>이슈→PR 자동화</td>
+                                <td>태스크 위임</td>
+                            </tr>
+                            <tr>
+                                <td class="level-5">L5</td>
+                                <td>Autonomous</td>
+                                <td>정책 기반 자율 수행</td>
+                                <td>자율 개발</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>Level 1-2: 현재 대부분의 조직</h3>
+                    <div class="two-column">
+                        <div class="stat-box" style="display: block;">
+                            <h4 class="level-1">L1: Ad-hoc</h4>
+                            <ul class="small" style="text-align: left;">
+                                <li>개인이 알아서 활용</li>
+                                <li>ChatGPT, 사내 챗봇</li>
+                                <li>팀 표준 없음</li>
+                                <li>"잘 쓰는 사람만 성과"</li>
+                            </ul>
+                        </div>
+                        <div class="stat-box green" style="display: block;">
+                            <h4 class="level-2">L2: Standardized</h4>
+                            <ul class="small" style="text-align: left;">
+                                <li>팀 적용 지점 합의</li>
+                                <li>Copilot, JetBrains AI</li>
+                                <li>가이드라인 존재</li>
+                                <li>PR에 AI 점검 포함</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Level 3-4: 목표 단계</h3>
+                    <div class="two-column">
+                        <div class="stat-box" style="display: block; background: rgba(34, 211, 238, 0.15);">
+                            <h4 class="level-3">L3: Repo-aware</h4>
+                            <p class="small" style="color: #9ca3af;">"똑똑한 페어 프로그래머"</p>
+                            <ul class="small" style="text-align: left;">
+                                <li>저장소 문맥 이해</li>
+                                <li>멀티파일 수정 제안</li>
+                                <li>Cursor, Cline, Aider</li>
+                            </ul>
+                        </div>
+                        <div class="stat-box purple" style="display: block;">
+                            <h4 class="level-4">L4: Agentic Flow</h4>
+                            <p class="small" style="color: #9ca3af;">"주니어에게 태스크 위임"</p>
+                            <ul class="small" style="text-align: left;">
+                                <li>이슈→코드→테스트→PR</li>
+                                <li>자동 실행 및 반복</li>
+                                <li>Claude Code, Devin</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>적용 범위: 개발 전체 분야</h3>
+                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 30px;">
+                        <div class="stat-box" style="min-width: 120px; padding: 15px;">기획</div>
+                        <div class="stat-box" style="min-width: 120px; padding: 15px;">요구사항</div>
+                        <div class="stat-box" style="min-width: 120px; padding: 15px;">설계</div>
+                        <div class="stat-box" style="min-width: 120px; padding: 15px;">개발</div>
+                        <div class="stat-box" style="min-width: 120px; padding: 15px;">검증</div>
+                        <div class="stat-box" style="min-width: 120px; padding: 15px;">운영</div>
+                        <div class="stat-box" style="min-width: 120px; padding: 15px;">유지보수</div>
+                    </div>
+                    <p style="margin-top: 30px; color: #fbbf24; font-weight: bold;">
+                        → 개발 영역별 전문 AI 툴 활용 역량 필수
+                    </p>
+                </section>
+            </section>
+
+            <!-- 섹션 4: 외부 LLM 활용 구조 -->
+            <section>
+                <section>
+                    <h2>4️⃣ 외부 LLM 활용 구조</h2>
+                    <p class="highlight">안전하게 쓸 수 있는 환경 만들기</p>
+                </section>
+
+                <section>
+                    <h3>4가지 구성 옵션</h3>
+                    <table class="matrix-table" style="font-size: 0.8em;">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>LLM 내부</th>
+                                <th>LLM 외부</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="background: rgba(66, 175, 250, 0.2);"><strong>코드/환경<br>내부</strong></td>
+                                <td style="background: rgba(74, 222, 128, 0.2);">
+                                    🏠 <strong>완전 내재화</strong><br>
+                                    <span class="small">최고 보안, 높은 비용</span>
+                                </td>
+                                <td style="background: rgba(251, 191, 36, 0.2);">
+                                    ⚡ <strong>하이브리드 A</strong><br>
+                                    <span class="small">코드는 내부, LLM은 외부</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background: rgba(66, 175, 250, 0.2);"><strong>코드/환경<br>외부</strong></td>
+                                <td style="background: rgba(251, 191, 36, 0.2);">
+                                    🔒 <strong>하이브리드 B</strong><br>
+                                    <span class="small">LLM은 내부, 환경은 외부</span>
+                                </td>
+                                <td style="background: rgba(248, 113, 113, 0.2);">
+                                    ☁️ <strong>완전 외부화</strong><br>
+                                    <span class="small">빠른 도입, 보안 주의</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>🔐 보안 준수 원칙</h3>
+                    <div style="text-align: left; max-width: 700px; margin: 0 auto;">
+                        <p><span class="icon">🛡️</span><strong>코드 유출 방지</strong></p>
+                        <p class="small" style="color: #9ca3af; margin-left: 40px;">민감 코드 외부 전송 차단</p>
+                        
+                        <p><span class="icon">🔍</span><strong>민감정보 필터링</strong></p>
+                        <p class="small" style="color: #9ca3af; margin-left: 40px;">API 키, 인증정보 자동 마스킹</p>
+                        
+                        <p><span class="icon">📝</span><strong>감사 로그 체계</strong></p>
+                        <p class="small" style="color: #9ca3af; margin-left: 40px;">AI 사용 내역 추적 가능</p>
+                        
+                        <p><span class="icon">✅</span><strong>승인 프로세스</strong></p>
+                        <p class="small" style="color: #9ca3af; margin-left: 40px;">AI 생성 코드 리뷰 필수</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 섹션 5: 협의체 운영 -->
+            <section>
+                <section>
+                    <h2>5️⃣ 추진 체계</h2>
+                    <p class="highlight">협의체를 통한 지속 발전</p>
+                </section>
+
+                <section>
+                    <h3>협의체 구성 및 역할</h3>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 30px 0;">
+                        <div class="stat-box" style="min-width: 140px;">
+                            <p style="font-size: 1.5em;">👨‍💻</p>
+                            <p><strong>개발 리드</strong></p>
+                        </div>
+                        <div class="stat-box" style="min-width: 140px;">
+                            <p style="font-size: 1.5em;">🔒</p>
+                            <p><strong>보안</strong></p>
+                        </div>
+                        <div class="stat-box" style="min-width: 140px;">
+                            <p style="font-size: 1.5em;">🖥️</p>
+                            <p><strong>인프라</strong></p>
+                        </div>
+                        <div class="stat-box" style="min-width: 140px;">
+                            <p style="font-size: 1.5em;">🙋</p>
+                            <p><strong>현업 개발자</strong></p>
+                        </div>
+                    </div>
+                    <p style="color: #9ca3af;">도구 검토 → 가이드라인 수립 → 성과 측정 → 피드백 반영</p>
+                </section>
+
+                <section>
+                    <h3>왜 개인 개발자에게도 중요한가?</h3>
+                    <div class="two-column" style="margin-top: 20px;">
+                        <div>
+                            <h4 class="highlight">🏢 회사 관점</h4>
+                            <ul class="small">
+                                <li>생산성 향상</li>
+                                <li>품질 개선</li>
+                                <li>제품 경쟁력</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="highlight-green">👤 개인 관점</h4>
+                            <ul class="small">
+                                <li><strong>시장 가치 상승</strong><br>AI 역량 = 필수 스킬</li>
+                                <li><strong>반복 작업 감소</strong><br>핵심 역량에 집중</li>
+                                <li><strong>회사 지원으로 학습</strong><br>러닝 커브 완화</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p style="margin-top: 30px; font-weight: bold; color: #4ade80;">
+                        "함께 성장하는 구조"
+                    </p>
+                </section>
+            </section>
+
+            <!-- 섹션 6: 로드맵 -->
+            <section>
+                <section>
+                    <h2>6️⃣ 로드맵</h2>
+                    <p class="highlight">단계별 추진 계획</p>
+                </section>
+
+                <section>
+                    <h3>단계별 타임라인</h3>
+                    <div class="timeline" style="max-width: 700px; margin: 30px auto;">
+                        <div class="timeline-item">
+                            <strong class="highlight">2025 Q2</strong> - 파일럿 시작
+                            <p class="small" style="color: #9ca3af; margin: 5px 0 0 0;">선정팀 적용, 도구 검증</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="highlight">2025 Q3</strong> - Level 2 확산
+                            <p class="small" style="color: #9ca3af; margin: 5px 0 0 0;">팀 표준화, 가이드라인 배포</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="highlight">2025 H2</strong> - Level 3 도입
+                            <p class="small" style="color: #9ca3af; margin: 5px 0 0 0;">Repo-aware 도구 도입, 오픈소스 LLM 활용 방안 정착</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong class="highlight">2026</strong> - Level 4 시범
+                            <p class="small" style="color: #9ca3af; margin: 5px 0 0 0;">Agentic 파일럿, 자동화 확대</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>단계별 주요 마일스톤</h3>
+                    <table style="font-size: 0.7em;">
+                        <thead>
+                            <tr>
+                                <th>단계</th>
+                                <th>대상</th>
+                                <th>도구</th>
+                                <th>성과 지표</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>파일럿</strong></td>
+                                <td>선정 2-3개 팀</td>
+                                <td>Copilot, Cursor</td>
+                                <td>사용성, 만족도</td>
+                            </tr>
+                            <tr>
+                                <td><strong>확산</strong></td>
+                                <td>전체 개발팀</td>
+                                <td>표준 도구 세트</td>
+                                <td>PR 리뷰 시간</td>
+                            </tr>
+                            <tr>
+                                <td><strong>고도화</strong></td>
+                                <td>핵심 프로젝트</td>
+                                <td>Agent 도구</td>
+                                <td>자동화율</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+
+            <!-- 섹션 7: 목표 -->
+            <section>
+                <section>
+                    <h2>7️⃣ 목표 및 기대 효과</h2>
+                    <p class="highlight">궁극적으로 달성하고자 하는 것</p>
+                </section>
+
+                <section>
+                    <h3>🎯 정성적 목표</h3>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;">
+                        <div class="stat-box" style="min-width: 200px;">
+                            <p style="font-size: 2em;">📈</p>
+                            <p><strong>품질 향상</strong></p>
+                            <p class="small" style="color: #9ca3af;">AI 코드리뷰로<br>버그 조기 발견</p>
+                        </div>
+                        <div class="stat-box green" style="min-width: 200px;">
+                            <p style="font-size: 2em;">🚀</p>
+                            <p><strong>경쟁력 강화</strong></p>
+                            <p class="small" style="color: #9ca3af;">빠른 기능 출시<br>기술 부채 관리</p>
+                        </div>
+                        <div class="stat-box purple" style="min-width: 200px;">
+                            <p style="font-size: 2em;">⚡</p>
+                            <p><strong>생산성 향상</strong></p>
+                            <p class="small" style="color: #9ca3af;">반복 작업 자동화<br>개발자 집중도 ↑</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>📊 정량적 목표 (측정 예정)</h3>
+                    <table style="font-size: 0.8em; margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th>측정 지표</th>
+                                <th>현재</th>
+                                <th>목표</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PR 리뷰 시간</td>
+                                <td>-</td>
+                                <td>단축</td>
+                            </tr>
+                            <tr>
+                                <td>테스트 커버리지</td>
+                                <td>-</td>
+                                <td>향상</td>
+                            </tr>
+                            <tr>
+                                <td>Production 버그율</td>
+                                <td>-</td>
+                                <td>감소</td>
+                            </tr>
+                            <tr>
+                                <td>개발자 만족도</td>
+                                <td>-</td>
+                                <td>향상</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 30px; color: #fbbf24;">
+                        💡 "파일럿을 통해 실측하고, 데이터로 증명하겠다"
+                    </p>
+                </section>
+
+                <section>
+                    <h2>감사합니다</h2>
+                    <p style="font-size: 1.2em; margin-top: 40px;">
+                        <span class="highlight">AI와 함께 성장하는 개발 문화</span>를<br>
+                        만들어 가겠습니다
+                    </p>
+                    <p style="margin-top: 60px; color: #6b7280;">Q&A</p>
+                </section>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide',
+            backgroundTransition: 'fade'
+        });
+
+        // HumanEval 차트
+        Reveal.on('slidechanged', event => {
+            if (event.currentSlide.querySelector('#humanEvalChart')) {
+                const ctx = document.getElementById('humanEvalChart');
+                if (ctx && !ctx.chart) {
+                    ctx.chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2021', '2022', '2023', '2024', '2025'],
+                            datasets: [
+                                {
+                                    label: '상용 LLM (GPT, Claude)',
+                                    data: [29, 55, 75, 88, 93],
+                                    borderColor: '#3b82f6',
+                                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                    borderWidth: 3,
+                                    pointRadius: 6,
+                                    pointBackgroundColor: '#3b82f6',
+                                    tension: 0.3,
+                                    fill: true
+                                },
+                                {
+                                    label: '오픈소스 (DeepSeek, Qwen)',
+                                    data: [0, 25, 55, 82, 91],
+                                    borderColor: '#22c55e',
+                                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                                    borderWidth: 3,
+                                    pointRadius: 6,
+                                    pointBackgroundColor: '#22c55e',
+                                    tension: 0.3,
+                                    fill: true
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    labels: { color: '#e5e7eb', font: { size: 14 } }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    min: 0,
+                                    max: 100,
+                                    ticks: { 
+                                        color: '#9ca3af',
+                                        callback: value => value + '%'
+                                    },
+                                    grid: { color: '#374151' }
+                                },
+                                x: {
+                                    ticks: { color: '#9ca3af' },
+                                    grid: { color: '#374151' }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            if (event.currentSlide.querySelector('#sweBenchChart')) {
+                const ctx = document.getElementById('sweBenchChart');
+                if (ctx && !ctx.chart) {
+                    ctx.chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Claude Opus 4.5', 'Gemini 3 Pro', 'GPT-5.2', 'DeepSeek V3.2', 'Qwen3-Coder', 'GLM-4.6'],
+                            datasets: [{
+                                label: '해결률 (%)',
+                                data: [79.2, 77.4, 75.4, 72, 68, 65],
+                                backgroundColor: [
+                                    '#3b82f6', '#3b82f6', '#3b82f6',
+                                    '#22c55e', '#22c55e', '#22c55e'
+                                ],
+                                borderRadius: 6
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                x: {
+                                    min: 0,
+                                    max: 100,
+                                    ticks: { 
+                                        color: '#9ca3af',
+                                        callback: value => value + '%'
+                                    },
+                                    grid: { color: '#374151' }
+                                },
+                                y: {
+                                    ticks: { color: '#e5e7eb', font: { size: 12 } },
+                                    grid: { display: false }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
