@@ -1836,7 +1836,7 @@
 
     <script>
         let reviewMode = false;
-        const STORAGE_KEY = 'presentation_review_notes';
+        let notesCache = {};
 
         function toggleReviewMode() {
             reviewMode = !reviewMode;
@@ -1858,27 +1858,48 @@
             return `slide_${indices.h}_${indices.v}`;
         }
 
-        function getAllNotes() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            return stored ? JSON.parse(stored) : {};
+        // 서버에서 전체 메모 가져오기
+        async function fetchAllNotes() {
+            try {
+                const res = await fetch('/api/notes');
+                notesCache = await res.json();
+                return notesCache;
+            } catch (e) {
+                console.log('서버 연결 안됨, localStorage 사용');
+                const stored = localStorage.getItem('presentation_review_notes');
+                notesCache = stored ? JSON.parse(stored) : {};
+                return notesCache;
+            }
         }
 
-        function saveNote() {
+        // 메모 저장 (서버 + localStorage 백업)
+        async function saveNote() {
             const note = document.getElementById('reviewNote').value;
-            const notes = getAllNotes();
             const key = getSlideKey();
+            const slideInfo = document.getElementById('currentSlideInfo').textContent;
 
-            if (note.trim()) {
-                notes[key] = {
-                    note: note,
-                    slideInfo: document.getElementById('currentSlideInfo').textContent,
-                    timestamp: new Date().toLocaleString('ko-KR')
-                };
-            } else {
-                delete notes[key];
+            try {
+                await fetch('/api/notes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key, note, slideInfo })
+                });
+
+                // 캐시 업데이트
+                if (note.trim()) {
+                    notesCache[key] = { note, slideInfo, timestamp: new Date().toLocaleString('ko-KR') };
+                } else {
+                    delete notesCache[key];
+                }
+            } catch (e) {
+                // 서버 실패 시 localStorage에 저장
+                if (note.trim()) {
+                    notesCache[key] = { note, slideInfo, timestamp: new Date().toLocaleString('ko-KR') };
+                } else {
+                    delete notesCache[key];
+                }
+                localStorage.setItem('presentation_review_notes', JSON.stringify(notesCache));
             }
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
 
             const status = document.getElementById('saveStatus');
             status.classList.add('show');
@@ -1894,31 +1915,30 @@
             }
         }
 
-        function loadCurrentNote() {
+        async function loadCurrentNote() {
             const indices = Reveal.getIndices();
             const total = Reveal.getTotalSlides();
             const current = Reveal.getSlidePastCount() + 1;
 
             document.getElementById('currentSlideInfo').textContent = `슬라이드 ${current}/${total}`;
 
-            const notes = getAllNotes();
+            await fetchAllNotes();
             const key = getSlideKey();
-            const noteData = notes[key];
+            const noteData = notesCache[key];
 
             document.getElementById('reviewNote').value = noteData ? noteData.note : '';
             updateNoteIndicator();
         }
 
         function updateNoteIndicator() {
-            const notes = getAllNotes();
             const key = getSlideKey();
             const indicator = document.getElementById('noteIndicator');
-            indicator.classList.toggle('show', !!notes[key]);
+            indicator.classList.toggle('show', !!notesCache[key]);
         }
 
-        function exportNotes() {
-            const notes = getAllNotes();
-            const keys = Object.keys(notes).sort((a, b) => {
+        async function exportNotes() {
+            await fetchAllNotes();
+            const keys = Object.keys(notesCache).sort((a, b) => {
                 const [, h1, v1] = a.split('_').map(Number);
                 const [, h2, v2] = b.split('_').map(Number);
                 return h1 - h2 || v1 - v2;
@@ -1934,14 +1954,13 @@
             exportText += '─'.repeat(50) + '\n\n';
 
             keys.forEach(key => {
-                const data = notes[key];
+                const data = notesCache[key];
                 exportText += `## ${data.slideInfo}\n`;
                 exportText += `작성시간: ${data.timestamp}\n\n`;
                 exportText += `${data.note}\n\n`;
                 exportText += '─'.repeat(50) + '\n\n';
             });
 
-            // 다운로드
             const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1955,12 +1974,13 @@
         Reveal.on('slidechanged', () => {
             if (reviewMode) {
                 loadCurrentNote();
+            } else {
+                fetchAllNotes().then(updateNoteIndicator);
             }
-            updateNoteIndicator();
         });
 
         // 초기화
-        updateNoteIndicator();
+        fetchAllNotes().then(updateNoteIndicator);
     </script>
 </body>
 </html>
