@@ -1983,17 +1983,10 @@
             }
         });
 
-        // 키보드 단축키: R 키로 리뷰 모드 토글
-        document.addEventListener('keydown', (e) => {
-            // 입력 필드에서는 무시
-            if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
-
-            if (e.key === 'r' || e.key === 'R') {
-                const btn = document.querySelector('.review-toggle');
-                btn.classList.add('visible');
-                toggleReviewMode();
-            }
-        });
+        // URL 파라미터로 리뷰 모드 활성화: ?review
+        if (window.location.search.includes('review')) {
+            document.querySelector('.review-toggle').classList.add('visible');
+        }
 
         // 초기화
         fetchAllNotes().then(updateNoteIndicator);
