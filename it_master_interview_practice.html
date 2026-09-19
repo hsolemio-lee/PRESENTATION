@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IT 석사 면접 연습</title>
+  <style>
+    :root { --bg:#f4f7fb; --card:#fff; --ink:#172033; --muted:#64748b; --line:#dbe3ef; --brand:#315efb; --brand2:#1839b8; --soft:#eef3ff; --green:#087f5b; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,#eef3ff 0%,var(--bg) 42%,#f8fafc 100%); color:var(--ink); font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif; line-height:1.65; }
+    .wrap { max-width:1040px; margin:0 auto; padding:38px 20px 70px; }
+    header { margin-bottom:24px; }
+    .eyebrow { color:var(--brand); font-weight:800; letter-spacing:.04em; font-size:13px; }
+    h1 { margin:5px 0 8px; font-size:clamp(28px,4vw,44px); letter-spacing:-.04em; }
+    .subtitle { color:var(--muted); margin:0; }
+    .toolbar { display:flex; flex-wrap:wrap; gap:10px; margin:24px 0; align-items:center; }
+    button, select { border:1px solid var(--line); border-radius:11px; background:#fff; color:var(--ink); font:inherit; padding:10px 15px; cursor:pointer; }
+    button:hover { border-color:var(--brand); }
+    button.primary { color:white; background:var(--brand); border-color:var(--brand); font-weight:700; }
+    button.primary:hover { background:var(--brand2); }
+    button.ghost { background:transparent; }
+    select { min-width:170px; }
+    .stats { margin-left:auto; color:var(--muted); font-size:14px; }
+    .card { background:rgba(255,255,255,.94); border:1px solid var(--line); border-radius:20px; box-shadow:0 12px 35px rgba(43,65,110,.08); padding:clamp(22px,4vw,40px); }
+    .meta { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:18px; }
+    .badge { background:var(--soft); color:var(--brand2); border-radius:99px; padding:4px 11px; font-size:13px; font-weight:700; }
+    .number { color:var(--muted); font-size:14px; }
+    h2 { font-size:clamp(21px,3vw,30px); line-height:1.35; letter-spacing:-.03em; margin:0 0 24px; }
+    label { display:block; font-weight:750; margin:18px 0 8px; }
+    textarea { width:100%; min-height:190px; resize:vertical; border:1px solid var(--line); border-radius:13px; padding:15px; font:inherit; line-height:1.7; outline:none; background:#fbfdff; }
+    textarea:focus { border-color:var(--brand); box-shadow:0 0 0 4px rgba(49,94,251,.1); }
+    .hint { color:var(--muted); font-size:13px; margin-top:7px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:15px; }
+    .sample { display:none; margin-top:24px; border-left:4px solid var(--brand); background:#f7f9ff; padding:18px 20px; border-radius:0 13px 13px 0; white-space:pre-line; }
+    .sample.show { display:block; }
+    .sample-title { color:var(--brand2); font-weight:800; margin-bottom:7px; }
+    .bottom { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-top:17px; color:var(--muted); font-size:13px; }
+    .progress { height:7px; background:#e7edf7; border-radius:99px; overflow:hidden; margin-top:23px; }
+    .progress > span { display:block; height:100%; background:linear-gradient(90deg,var(--brand),#6e8cff); width:0%; transition:width .25s; }
+    .tip { margin-top:18px; padding:16px 18px; background:#fffdf2; border:1px solid #f3e4a0; border-radius:13px; color:#6f5c08; font-size:14px; }
+    footer { text-align:center; color:var(--muted); font-size:13px; margin-top:22px; }
+    @media (max-width:620px) { .wrap{padding:25px 14px 50px}.stats{width:100%;margin-left:0}.card{border-radius:16px;padding:22px 17px}.bottom{align-items:flex-start;flex-direction:column} }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">OFFLINE INTERVIEW PRACTICE</div>
+      <h1>IT 석사 면접 연습</h1>
+      <p class="subtitle">지원서 기반 질문을 무작위로 받고, 먼저 답변한 뒤 샘플 답변을 확인해 보세요.</p>
+    </header>
+
+    <section class="toolbar" aria-label="연습 설정">
+      <select id="category" aria-label="질문 분야">
+        <option value="all">전체 질문</option>
+        <option value="자기소개">자기소개</option>
+        <option value="지원동기">지원동기</option>
+        <option value="자기업적">자기업적</option>
+        <option value="AI·기술">AI·기술</option>
+        <option value="학습계획">학습계획</option>
+        <option value="성장목표">성장목표</option>
+        <option value="압박질문">압박질문</option>
+      </select>
+      <button class="primary" id="randomBtn">무작위 질문</button>
+      <button id="nextBtn">다음 질문</button>
+      <button class="ghost" id="resetBtn">기록 초기화</button>
+      <span class="stats" id="stats">답변 기록 0개</span>
+    </section>
+
+    <section class="card">
+      <div class="meta"><span class="badge" id="categoryLabel">지원동기</span><span class="number" id="questionNumber">질문 1 / 26</span></div>
+      <h2 id="question">단순한 교육이나 사내 학습이 아니라 석사과정이어야 하는 이유는 무엇입니까?</h2>
+      <label for="answer">나의 답변</label>
+      <textarea id="answer" placeholder="면접관에게 말하듯 답변을 입력해 보세요."></textarea>
+      <div class="hint">권장 답변 시간: 40초~1분 · 먼저 답변한 뒤 샘플 답변을 확인하세요.</div>
+      <div class="actions">
+        <button class="primary" id="sampleBtn">샘플 답변 보기</button>
+        <button id="saveBtn">답변 저장</button>
+      </div>
+      <div class="sample" id="sample"><div class="sample-title">샘플 답변</div><div id="sampleText"></div></div>
+      <div class="progress"><span id="progressBar"></span></div>
+      <div class="bottom"><span id="visited">아직 답변하지 않았습니다.</span><span>Tip: 핵심 구조는 결론 → 경험 → 앞으로의 계획입니다.</span></div>
+    </section>
+    <div class="tip"><strong>면접 핵심 메시지</strong><br>엔터프라이즈 개발 경험을 바탕으로 AI 기술을 실제 서비스와 개발 프로세스에 연결할 수 있는 엔지니어로 성장하고 싶습니다.</div>
+    <footer>입력한 답변은 이 브라우저에만 저장됩니다.</footer>
+  </main>
+
+  <script>
+    const questions = [
+      {c:'자기소개',q:'1분 이내로 자기소개해 주세요.',a:'안녕하세요. 삼성SDS SCM개발그룹에서 약 8년간 백엔드와 플랫폼 개발을 담당해 온 이한솔입니다. Nexshop Sales, Knox Meeting Billing, Nexprime SCM 등 다양한 엔터프라이즈 서비스의 개발 경험을 쌓았고, 최근에는 Nexprime SCM Portal의 기획부터 아키텍처 검토, 주요 기능 개발, 일정 관리와 릴리즈까지 주도했습니다.\n\n또한 Nexprime SCM Copilot 개발과 사내 AI 코딩 도구 Pioneer 활동을 통해 생성형 AI와 Agentic Coding을 실제 업무에 적용하고 있습니다. 이 과정에서 AI가 서비스와 개발 방식 자체를 변화시키고 있다는 점을 체감했습니다. 연세대학교 인공지능컴퓨팅 과정에서 AI의 핵심 원리를 배우고, 기존 개발 경험과 결합해 실제 업무와 조직의 경쟁력 향상에 기여하는 엔지니어로 성장하고자 지원했습니다.'},
+      {c:'지원동기',q:'왜 지금 석사과정에 지원했습니까?',a:'최근 생성형 AI와 Agentic Coding을 실제 업무에 적용하면서 AI의 가능성과 한계를 동시에 경험했기 때문입니다. RAG 품질 평가, Agent의 도구 선택과 작업 흐름, AI 결과의 신뢰성 검증을 경험하며 실무 적용만으로는 부족하고 체계적인 이론 학습이 필요하다고 느꼈습니다. 실무 경험을 기반으로 AI를 더 정확히 이해하고 검증하기 위해 지금 지원했습니다.'},
+      {c:'지원동기',q:'단순한 교육이나 사내 학습이 아니라 석사과정이어야 하는 이유는 무엇입니까?',a:'솔직히 말씀드리면 석사학위라는 객관적인 타이틀과 외부에서 검증된 전문성도 중요하게 생각합니다. 현재 AI 업무를 수행하고 있지만, 사내에서 새로운 역할을 맡고 AI 전문가로 인정받기 위해서는 실무 경험뿐 아니라 체계적으로 공부했다는 객관적인 기준도 필요하다고 느꼈습니다.\n\n다만 학위 자체가 목적은 아닙니다. 석사과정에서 AI 원리와 평가 방법을 체계적으로 배우고, 이를 실제 업무 성과로 연결해 개인의 전문성을 증명하고 회사에서 더 큰 역할과 책임을 맡는 것이 목표입니다.'},
+      {c:'지원동기',q:'현재도 AI 업무를 하고 있는데, 무엇이 부족하다고 느꼈습니까?',a:'AI를 업무에 적용하고 효과와 한계를 관찰하는 경험은 쌓고 있지만, 결과가 왜 그렇게 나왔는지, 어떤 데이터와 평가 기준으로 품질을 객관적으로 판단할지에 대해서는 더 깊은 이해가 필요하다고 느꼈습니다. AI를 활용하는 수준에서 나아가 새로운 기술을 분석하고 검증할 수 있는 역량을 갖추고 싶습니다.'},
+      {c:'자기업적',q:'가장 가치 있다고 생각하는 업무 성과는 무엇입니까?',a:'Nexprime SCM Portal의 기획과 개발을 주도하고, 실무 개발까지 병행하며 두 차례의 릴리즈를 완료한 경험입니다. 초기 기획부터 아키텍처와 기술 검토, 주요 기능 개발, 일정 관리와 릴리즈까지 전 과정에 참여했습니다. 자체 투자로 시작한 서비스가 지속적인 사업기회 발굴과 고객 계약 준비로 이어지고 있다는 점에서, 개인의 개발을 넘어 팀의 결과와 사업 기회를 만든 경험이라고 생각합니다.'},
+      {c:'자기업적',q:'해당 프로젝트에서 본인이 구체적으로 맡은 역할은 무엇입니까?',a:'서비스 방향과 주요 기능을 정의하고, 적합한 아키텍처와 기술을 검토했습니다. 이후 주요 기능을 직접 개발하면서 동료들의 역할과 일정을 조율하고 릴리즈까지 진행했습니다. 업무를 배분하는 데 그치지 않고 실제 개발 문제를 함께 해결하면서 기술 판단과 협업을 함께 고려하는 개발 리딩 역량을 키웠습니다.'},
+      {c:'자기업적',q:'프로젝트를 진행하며 가장 어려웠던 점은 무엇이었습니까?',a:'명확한 고객 요구사항이나 이미 정해진 사업 목표가 없는 상태에서 서비스 방향을 정해야 했던 점입니다. 개발 관점에서 기능을 무조건 확장하기보다 향후 고객과 사업에 줄 수 있는 가치를 기준으로 우선순위를 정했습니다. 핵심 기능 중심으로 범위를 조정하고 단계적으로 릴리즈하면서 기술적으로 만들 수 있는 것과 실제로 만들어야 하는 것을 구분하는 법을 배웠습니다.'},
+      {c:'자기업적',q:'리딩과 실무 개발을 동시에 수행하면서 어려움은 없었습니까?',a:'부담은 있었지만 모든 일을 직접 해결하려 하기보다 의사결정이 필요한 일과 구성원이 자율적으로 진행할 일을 구분했습니다. 일정에 영향을 줄 수 있는 기술적 위험은 초기에 검토하고, 역할과 우선순위를 명확히 해 리딩과 실무를 병행했습니다. 결과적으로 팀이 릴리즈 일정을 지키면서 목표를 달성할 수 있었습니다.'},
+      {c:'AI·기술',q:'생성형 AI와 Agentic Coding을 어떻게 이해하고 있습니까?',a:'생성형 AI는 요청을 바탕으로 새로운 결과물을 생성하는 기술이고, Agentic Coding은 AI가 코드를 제안하는 것을 넘어 요구사항을 분석하고 필요한 도구를 선택하며 여러 단계의 작업을 수행하는 방식이라고 이해하고 있습니다. 핵심은 AI에게 일을 맡기는 것뿐 아니라 도구 선택, 권한, 검증과 실패 복구가 가능한 환경을 설계하는 데 있다고 생각합니다.'},
+      {c:'AI·기술',q:'Agent의 도구 선택이 왜 중요합니까?',a:'도구 선택에 따라 결과의 정확성, 처리 시간, 비용과 보안 수준이 달라지기 때문입니다. 단순 검색과 데이터 변경 작업은 필요한 권한과 위험도가 다르므로 도구별 사용 조건과 권한을 정의해야 합니다. 영향도가 큰 작업은 사람의 승인과 결과 검증을 추가해야 하며, Agent를 하나의 소프트웨어 시스템으로 보고 설계해야 한다고 생각합니다.'},
+      {c:'AI·기술',q:'RAG의 품질은 어떻게 평가할 수 있습니까?',a:'검색 단계와 생성 단계로 나누어 평가해야 합니다. 검색 단계에서는 관련 문서가 검색되고 상위에 배치되는지 확인하고, 생성 단계에서는 검색 근거를 바탕으로 답변하는지, 사실과 다른 내용을 만들지 않는지, 질문 의도에 맞는지 평가해야 합니다. 정답 데이터셋과 검색 정확도, 답변의 근거성·정확성·일관성 지표를 사용하고 실제 사용자 피드백도 함께 반영하겠습니다.'},
+      {c:'AI·기술',q:'AI 결과를 신뢰하기 어려운 상황에서는 어떻게 하겠습니까?',a:'결과의 중요도와 위험도에 따라 검증 수준을 다르게 적용하겠습니다. 단순한 초안은 개발자 확인으로 충분할 수 있지만 운영 데이터 변경이나 보안 관련 작업은 사람의 승인과 테스트를 필수로 하겠습니다. 근거와 출처를 제시하게 하고 테스트, 정적 분석, 코드 리뷰를 결합하겠습니다. AI를 신뢰한다는 것은 결과를 무조건 믿는 것이 아니라 신뢰할 수 있는 검증 구조를 만드는 것이라고 생각합니다.'},
+      {c:'AI·기술',q:'AI가 개발자를 대체할 수 있다고 생각합니까?',a:'반복적인 코딩과 문서 작성은 AI가 상당 부분 대체할 수 있다고 생각합니다. 하지만 요구사항 정의, 트레이드오프 판단, 시스템 구조 설계와 결과에 대한 책임까지 대체하기는 어렵습니다. 개발자는 직접 코드를 작성하는 역할에서 AI를 활용해 더 빠르고 안정적으로 문제를 해결하는 환경을 설계하는 역할로 확장될 것이라고 생각합니다.'},
+      {c:'학습계획',q:'입학 후 가장 중점적으로 공부하고 싶은 분야는 무엇입니까?',a:'첫째는 AI와 딥러닝의 기본 원리, 둘째는 데이터와 평가 방법, 셋째는 초거대언어모델과 Agent 시스템입니다. 모델의 학습과 추론을 이해하고, AI 결과를 객관적으로 평가하며, 이를 현재 업무인 Copilot과 Agentic Coding에 연결해 실제 적용 방법을 검증하고 싶습니다.'},
+      {c:'학습계획',q:'학업과 업무를 어떻게 병행할 계획입니까?',a:'학습 내용을 별도의 이론 공부로만 두지 않고 현재 업무와 연결하겠습니다. 수업에서 배운 평가 방법이나 데이터 처리 방식을 Copilot과 Agentic Coding의 품질 분석에 적용하고, 업무에서 얻은 문제를 학습과 프로젝트 주제로 발전시키겠습니다. 일정과 학습 시간을 미리 관리해 업무와 학업에서 공통으로 활용할 수 있는 주제를 선택하겠습니다.'},
+      {c:'학습계획',q:'학습한 내용을 회사에 어떻게 기여하겠습니까?',a:'Copilot과 Agentic Coding의 효과와 품질을 데이터 기반으로 분석하고, 결과를 부서 세미나와 기술 공유로 전파하겠습니다. 이후 반복적으로 활용할 수 있는 AI 개발 가이드나 평가 기준을 정리해 팀 단위의 개발 방식 개선으로 연결하고 싶습니다.'},
+      {c:'성장목표',q:'석사과정 이후 회사에서 어떤 역할을 하고 싶습니까?',a:'단기적으로 Copilot과 Agentic Coding의 효과와 품질을 객관적으로 분석하고 개선 방향을 제시하고 싶습니다. 중기적으로는 비즈니스 요구사항을 AI 기술과 연결하고 반복 가능한 아키텍처와 개발 가이드를 정립하겠습니다. 장기적으로는 AI와 소프트웨어 엔지니어링을 함께 이해하는 Tech Leader로 성장해 삼성SDS의 제품과 개발 경쟁력에 기여하고 싶습니다.'},
+      {c:'성장목표',q:'왜 AI 연구자가 아니라 AI 시스템 아키텍트를 목표로 합니까?',a:'모델 자체를 연구하는 것보다 AI 기술을 실제 서비스와 업무에 적용해 가치를 만드는 데 더 큰 관심이 있습니다. 엔터프라이즈 서비스 개발 경험을 바탕으로 AI도 비즈니스 요구사항, 시스템 구조, 보안과 품질, 운영 가능성까지 고려해 설계해야 한다고 생각합니다. 그래서 AI 원리를 이해하면서 실제 시스템으로 연결하는 아키텍트를 목표로 합니다.'},
+      {c:'성장목표',q:'석사과정이 끝난 뒤에도 AI 기술이 지금처럼 중요하지 않다면 어떻게 하겠습니까?',a:'특정 기술의 유행만을 따라가기 위해 지원한 것은 아닙니다. 데이터를 기반으로 문제를 정의하고 결과를 평가하며 새로운 기술을 검증하는 역량을 배우고 싶습니다. AI의 형태가 바뀌더라도 이런 역량은 소프트웨어 서비스와 개발 프로세스를 개선하는 데 계속 활용될 수 있다고 생각합니다.'},
+      {c:'압박질문',q:'수학 전공이 AI 학습에 어떤 도움이 된다고 생각합니까?',a:'수학을 전공하며 문제를 논리적으로 구조화하고 복잡한 문제를 단계적으로 나누어 해결하는 훈련을 했습니다. 이 사고방식은 개발자로 전환한 이후에도 문제의 원인을 분석하고 해결책을 설계하는 데 도움이 되었습니다. AI에서도 수학적·논리적 사고가 중요하므로 기존의 사고 기반을 AI 학습과 연결하고 싶습니다.'},
+      {c:'압박질문',q:'수학 전공에서 IT 분야로 진로를 바꾼 이유는 무엇입니까?',a:'보험 관련 진로를 생각했지만, 새로운 가능성에 도전하고 싶어 IT 분야로 방향을 전환했습니다. 당시 개발 경험은 부족했지만 부족한 부분은 스스로 학습하면 극복할 수 있다고 판단했습니다. 이후 삼성SDS에서 다양한 서비스를 개발하며 성장했고, 선택 이후 꾸준히 학습해 결과로 만드는 과정이 중요하다는 점을 배웠습니다.'},
+      {c:'압박질문',q:'본인의 가장 큰 강점은 무엇입니까?',a:'새로운 기술을 학습하는 데 그치지 않고 실제 업무에 적용해 결과를 검증하고 조직과 공유하는 실행력입니다. AI 코딩 도구 Pioneer로 활동하며 Agentic Coding을 직접 사용하고 효과와 한계를 동료들과 공유하고 있습니다. 개발 실무와 프로젝트 리딩을 함께 경험해 기술 판단과 일정·협업을 함께 고려할 수 있다는 점도 강점입니다.'},
+      {c:'압박질문',q:'본인의 약점은 무엇이며 어떻게 보완하고 있습니까?',a:'새로운 기술을 충분히 이해한 뒤 적용하려는 성향이 있어 초기 검토에 시간이 많이 걸릴 때가 있습니다. 이를 보완하기 위해 작은 범위의 실험으로 핵심 가설을 먼저 검증하고, 결과가 확인된 부분을 확장합니다. AI처럼 변화가 빠른 분야에서는 검증 가능한 단위로 나누어 학습하고 적용하려고 노력하고 있습니다.'},
+      {c:'압박질문',q:'본인이 다른 지원자보다 적합하다고 생각하는 이유는 무엇입니까?',a:'실제 엔터프라이즈 서비스를 설계하고 릴리즈한 경험과 AI 기술을 업무에 적용해 본 경험을 함께 가지고 있기 때문입니다. AI를 이론적으로 학습하는 데 그치지 않고 실제 서비스와 개발 프로세스에 어떻게 적용할지 구체적으로 고민할 수 있습니다. 또한 학습 결과를 조직의 기술 공유와 업무 개선으로 연결하려는 목표가 분명합니다.'},
+      {c:'압박질문',q:'업무 성과가 개인의 성과인지 팀의 성과인지 어떻게 구분합니까?',a:'Nexprime SCM Portal은 팀이 함께 만든 결과입니다. 다만 저는 초기 기획과 기술 검토, 주요 기능 개발, 일정 및 릴리즈 조율을 맡았습니다. 따라서 개인의 단독 성과라기보다 팀이 결과를 낼 수 있도록 방향을 정하고 직접 실행하며 조율한 경험이라고 설명하는 것이 정확합니다.'},
+      {c:'압박질문',q:'AI를 실제 업무에 적용했을 때 기대만큼 효과가 있었습니까?',a:'모든 업무에서 동일한 효과가 있었던 것은 아닙니다. 코드 초안이나 반복 작업에서는 생산성 향상이 컸지만, 요구사항이 불명확하거나 시스템 맥락을 많이 이해해야 하는 작업에서는 검토와 수정이 필요했습니다. 그래서 업무 유형별로 AI의 효과와 한계를 측정해야 하며, 이것이 AI 품질 평가를 체계적으로 공부하고 싶은 이유이기도 합니다.'},
+      {c:'압박질문',q:'마지막으로 하고 싶은 말이 있습니까?',a:'저는 소프트웨어 엔지니어로 다양한 서비스를 개발해 왔지만, AI 기술을 제대로 이해하고 활용하기 위해서는 새로운 학습이 필요하다고 느꼈습니다. 이번 과정에서 AI의 원리와 평가 방법을 체계적으로 배우고 현재 업무와 연결해 실제 결과를 만들고 싶습니다. 개인의 성장에 그치지 않고 삼성SDS의 서비스와 개발 방식이 AI 시대에 경쟁력을 갖추는 데 기여하겠습니다. 감사합니다.'}
+    ];
+
+    let current = 0;
+    let viewed = JSON.parse(localStorage.getItem('itMasterInterviewViewed') || '{}');
+    let answers = JSON.parse(localStorage.getItem('itMasterInterviewAnswers') || '{}');
+    const $ = id => document.getElementById(id);
+    function pool() { const c=$('category').value; return c==='all' ? questions : questions.filter(x=>x.c===c); }
+    function render(index=current) {
+      current=index; const item=questions[current]; $('categoryLabel').textContent=item.c; $('question').textContent=item.q; $('questionNumber').textContent=`질문 ${current+1} / ${questions.length}`; $('answer').value=answers[current]||''; $('sampleText').textContent=item.a; $('sample').classList.remove('show'); $('sampleBtn').textContent='샘플 답변 보기'; $('visited').textContent=viewed[current]?'이 질문에 답변한 기록이 있습니다.':'아직 답변하지 않았습니다.'; $('progressBar').style.width=`${Object.keys(viewed).length/questions.length*100}%`; $('stats').textContent=`답변 기록 ${Object.keys(viewed).length}개`;
+    }
+    function randomQuestion() { const list=pool(); const item=list[Math.floor(Math.random()*list.length)]; render(questions.indexOf(item)); }
+    function save() { answers[current]=$('answer').value; viewed[current]=true; localStorage.setItem('itMasterInterviewAnswers',JSON.stringify(answers)); localStorage.setItem('itMasterInterviewViewed',JSON.stringify(viewed)); render(current); $('answer').focus(); }
+    $('randomBtn').onclick=randomQuestion; $('nextBtn').onclick=()=>{ const list=pool(); const pos=list.findIndex(x=>questions.indexOf(x)===current); render(questions.indexOf(list[(pos+1)%list.length])); }; $('category').onchange=randomQuestion;
+    $('saveBtn').onclick=save; $('sampleBtn').onclick=()=>{ $('sample').classList.toggle('show'); $('sampleBtn').textContent=$('sample').classList.contains('show')?'샘플 답변 숨기기':'샘플 답변 보기'; };
+    $('resetBtn').onclick=()=>{ if(confirm('저장된 답변과 기록을 모두 초기화할까요?')) { answers={}; viewed={}; localStorage.removeItem('itMasterInterviewAnswers'); localStorage.removeItem('itMasterInterviewViewed'); render(current); } };
+    render(0);
+  </script>
+</body>
+</html>
