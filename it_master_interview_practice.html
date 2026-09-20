@@ -94,7 +94,8 @@
           <button id="stopBtn">⏹ 정지</button>
           <button id="audioPrevBtn">이전</button>
           <button id="audioNextBtn">다음</button>
-          <label class="speed" for="speed">속도 <select id="speed"><option value="0.75">0.75배</option><option value="1" selected>1.0배</option><option value="1.15">1.15배</option><option value="1.3">1.3배</option></select></label>
+          <label class="speed" for="speed">속도 <select id="speed"><option value="0.75">0.75배</option><option value="0.92" selected>0.92배</option><option value="1">1.0배</option><option value="1.15">1.15배</option><option value="1.3">1.3배</option></select></label>
+          <label class="speed" for="voice">음성 <select id="voice"><option value="auto">자동 선택</option></select></label>
         </div>
         <div class="hint">재생이 끝나면 다음 질문으로 자동 이동하고, 마지막 질문 후 처음부터 반복합니다.</div>
       </div>
@@ -143,6 +144,7 @@
     let audioPlaying = false;
     let audioPaused = false;
     let audioToken = 0;
+    let availableVoices = [];
     const $ = id => document.getElementById(id);
     function pool() { const c=$('category').value; return c==='all' ? questions : questions.filter(x=>x.c===c); }
     function render(index=current) {
@@ -157,6 +159,19 @@
     function audioPool() { return pool(); }
     function audioText(item) { return `질문입니다. ${item.q} 샘플 답변입니다. ${item.a}`; }
     function updateAudioStatus(text) { $('audioStatus').textContent=text; }
+    function loadVoices() {
+      if (!('speechSynthesis' in window)) return;
+      availableVoices=speechSynthesis.getVoices().filter(v=>/^ko(-|_|$)/i.test(v.lang));
+      const select=$('voice'); const previous=select.value;
+      select.innerHTML='<option value="auto">자동 선택</option>';
+      availableVoices.forEach((voice,index)=>{ const option=document.createElement('option'); option.value=String(index); option.textContent=`${voice.name} (${voice.lang})`; select.appendChild(option); });
+      if ([...select.options].some(option=>option.value===previous)) select.value=previous;
+    }
+    function preferredVoice() {
+      if (!availableVoices.length) return null;
+      const natural=/natural|online|google|neural|heami|sunhi|yuna|sora/i;
+      return availableVoices.find(v=>natural.test(v.name)) || availableVoices[0];
+    }
     function speakCurrent() {
       const list=audioPool();
       if (!list.length || !('speechSynthesis' in window)) { updateAudioStatus('이 브라우저는 음성 재생을 지원하지 않습니다.'); return; }
@@ -165,6 +180,8 @@
       speechSynthesis.cancel();
       const utterance=new SpeechSynthesisUtterance(audioText(item));
       utterance.lang='ko-KR'; utterance.rate=parseFloat($('speed').value); utterance.pitch=1;
+      const voiceValue=$('voice').value;
+      utterance.voice=voiceValue==='auto' ? preferredVoice() : availableVoices[Number(voiceValue)];
       audioPlaying=true; audioPaused=false; audioIndex=audioIndex % list.length;
       render(questions.indexOf(item));
       updateAudioStatus(`재생 중 · ${audioIndex+1}/${list.length}`);
@@ -186,6 +203,8 @@
     $('audioNextBtn').onclick=()=>{ const list=audioPool(); audioIndex=(audioIndex+1)%list.length; if(audioPlaying) speakCurrent(); else render(questions.indexOf(list[audioIndex])); };
     $('audioPrevBtn').onclick=()=>{ const list=audioPool(); audioIndex=(audioIndex-1+list.length)%list.length; if(audioPlaying) speakCurrent(); else render(questions.indexOf(list[audioIndex])); };
     $('speed').onchange=()=>{ if(audioPlaying) speakCurrent(); };
+    $('voice').onchange=()=>{ if(audioPlaying) speakCurrent(); };
+    if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
     window.addEventListener('beforeunload',()=>{ if('speechSynthesis' in window) speechSynthesis.cancel(); });
     render(0);
   </script>
